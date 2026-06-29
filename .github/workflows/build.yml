@@ -37,7 +37,9 @@ jobs:
           EOF
 
       - name: Generate Xcode Project
-        run: xcodegen generate
+        run: |
+          xcodegen generate
+          sed -i '' 's/objectVersion = 77;/objectVersion = 56;/g' WordOfTheDay.xcodeproj/project.pbxproj
 
       - name: Resolve SPM Dependencies
         run: xcodebuild -resolvePackageDependencies -project WordOfTheDay.xcodeproj -scheme WordOfTheDay
