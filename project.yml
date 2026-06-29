@@ -15,6 +15,7 @@ targets:
       - path: ios/WordOfTheDay
       - path: ios/Shared
     info:
+      path: ios/WordOfTheDay/Info.plist
       properties:
         CFBundleDisplayName: LingoLock
         UILaunchScreen: {}
@@ -37,6 +38,7 @@ targets:
       - path: ios/WordOfTheDayWidget
       - path: ios/Shared
     info:
+      path: ios/WordOfTheDayWidget/Info.plist
       properties:
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
