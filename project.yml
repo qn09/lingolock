@@ -1,0 +1,33 @@
+name: WordOfTheDay
+options:
+  bundleIdPrefix: com.language
+targets:
+  WordOfTheDay:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: ios/WordOfTheDay
+      - path: ios/Shared
+    entitlements: ios/WordOfTheDay/WordOfTheDay.entitlements
+    dependencies:
+      - target: WordOfTheDayWidget
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.language.wordoftheday
+      TARGETED_DEVICE_FAMILY: "1" # iPhone only
+
+  WordOfTheDayWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: ios/WordOfTheDayWidget
+      - path: ios/Shared
+    entitlements: ios/WordOfTheDayWidget/WordOfTheDayWidget.entitlements
+    info:
+      plist:
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.language.wordoftheday.widget
+      TARGETED_DEVICE_FAMILY: "1"

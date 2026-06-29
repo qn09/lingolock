@@ -1,0 +1,51 @@
+name: Build iOS App (Unsigned IPA)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  build:
+    name: Build Unsigned IPA
+    runs-on: macos-14 # Uses Apple Silicon runners (macOS 14 Sonoma)
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: |
+          brew update
+          brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      - name: Build and Archive (No Sign)
+        run: |
+          xcodebuild archive \
+            -project WordOfTheDay.xcodeproj \
+            -scheme WordOfTheDay \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath WordOfTheDay.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_ENTITLEMENTS="" \
+            CODE_SIGNING_IDENTITY=""
+
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          cp -r WordOfTheDay.xcarchive/Products/Applications/WordOfTheDay.app Payload/
+          zip -r WordOfTheDay.ipa Payload
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WordOfTheDay-Unsigned-IPA
+          path: WordOfTheDay.ipa
+          if-no-files-found: error

@@ -1,0 +1,11 @@
+{
+  "name": "lingolock-simulator",
+  "version": "1.0.0",
+  "description": "Interactive Language Learning Lockscreen Simulator",
+  "scripts": {
+    "dev": "npx -y http-server web -p 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

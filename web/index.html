@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Lockscreen App - Interactive iOS Simulator</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Control Panel (Left Side) -->
+        <header class="control-panel">
+            <div class="brand">
+                <div class="logo">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <div>
+                    <h1>LingoLock</h1>
+                    <p class="tagline">iOS Lock Screen Vocabulary Simulator</p>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3><i class="fa-solid fa-sliders"></i> Simulator Controls</h3>
+                
+                <div class="control-item">
+                    <label for="language-select">Target Language</label>
+                    <div class="select-wrapper">
+                        <select id="language-select">
+                            <option value="Spanish" selected>🇪🇸 Spanish</option>
+                            <option value="French">🇫🇷 French</option>
+                            <option value="Japanese">🇯🇵 Japanese</option>
+                            <option value="German">🇩🇪 German</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="control-item">
+                    <label>Simulate Timeline (Date)</label>
+                    <div class="date-controls">
+                        <button id="prev-day-btn" title="Previous Day"><i class="fa-solid fa-chevron-left"></i></button>
+                        <span id="current-sim-date">Today</span>
+                        <button id="next-day-btn" title="Next Day"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <p class="help-text">Simulates the WidgetKit TimelineProvider rotating vocabulary daily.</p>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3><i class="fa-solid fa-square-poll-horizontal"></i> Lock Screen Widget Options</h3>
+                <div class="widget-type-selectors">
+                    <button class="widget-style-btn active" data-style="rectangular">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                        <span>Rectangular</span>
+                    </button>
+                    <button class="widget-style-btn" data-style="inline">
+                        <i class="fa-solid fa-minus"></i>
+                        <span>Inline</span>
+                    </button>
+                    <button class="widget-style-btn" data-style="circular">
+                        <i class="fa-solid fa-circle"></i>
+                        <span>Circular</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3><i class="fa-solid fa-image"></i> Lock Screen Wallpaper</h3>
+                <div class="wallpaper-selectors">
+                    <button class="wallpaper-btn active" data-bg="gradient-aurora" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);"></button>
+                    <button class="wallpaper-btn" data-bg="gradient-sunset" style="background: linear-gradient(135deg, #f54291, #f97066, #ff9f1c);"></button>
+                    <button class="wallpaper-btn" data-bg="gradient-nordic" style="background: linear-gradient(135deg, #2b5876, #4e4376);"></button>
+                    <button class="wallpaper-btn" data-bg="gradient-forest" style="background: linear-gradient(135deg, #134e5e, #71b280);"></button>
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <h4><i class="fa-solid fa-lightbulb"></i> How it works</h4>
+                <p><strong>LingoLock</strong> renders a deterministic "Word of the Day" directly on your iPhone Lock Screen. Using App Groups, settings chosen in the app are automatically synced to the widget container offline.</p>
+                <div class="btn-group">
+                    <button id="view-code-btn" class="secondary-btn"><i class="fa-solid fa-code"></i> View Swift Code</button>
+                </div>
+            </div>
+            
+            <div class="footer-note">
+                <p>Designed for iPhone iOS 16+. Created for native deployment.</p>
+            </div>
+        </header>
+
+        <!-- Main Screen Arena (Center - iOS Device Simulator) -->
+        <main class="simulator-arena">
+            <!-- Mode Toggle Switch -->
+            <div class="mode-selector-bar">
+                <button id="lock-mode-btn" class="mode-btn active"><i class="fa-solid fa-lock"></i> Lock Screen</button>
+                <button id="app-mode-btn" class="mode-btn"><i class="fa-solid fa-mobile-screen"></i> Main App</button>
+            </div>
+
+            <div class="iphone-device">
+                <div class="iphone-notch">
+                    <div class="camera"></div>
+                    <div class="speaker"></div>
+                </div>
+
+                <div class="iphone-screen gradient-aurora" id="iphone-screen-display">
+                    <!-- LOCK SCREEN OVERLAY -->
+                    <div class="screen-overlay" id="lockscreen-overlay">
+                        <div class="lockscreen-header">
+                            <span class="carrier">LingoLock eSIM</span>
+                            <div class="status-icons">
+                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-signal"></i>
+                                <i class="fa-solid fa-battery-three-quarters"></i>
+                            </div>
+                        </div>
+
+                        <!-- Date and Clock -->
+                        <div class="lockscreen-clock-area">
+                            <!-- Inline Widget Slot (Above Time) -->
+                            <div class="widget-slot-inline" id="widget-slot-inline-container" style="display: none;">
+                                <span class="widget-inline-content"><span class="widget-flag">🇪🇸</span> <span class="widget-inline-text">palabra: word</span></span>
+                            </div>
+                            
+                            <div class="lockscreen-date" id="lockscreen-date-text">Monday, June 29</div>
+                            <div class="lockscreen-time" id="lockscreen-time-text">09:41</div>
+                        </div>
+
+                        <!-- Rectangular & Circular Widget Slot (Below Clock) -->
+                        <div class="lockscreen-widgets-container" id="lockscreen-widgets-container">
+                            <!-- Rectangular Widget -->
+                            <div class="lockscreen-widget-rectangular" id="widget-rectangular-view">
+                                <div class="widget-rect-header">
+                                    <span class="widget-word" id="widget-rect-word">palabra</span>
+                                    <span class="widget-flag" id="widget-rect-flag">🇪🇸</span>
+                                </div>
+                                <span class="widget-pronunciation" id="widget-rect-pronunciation">/ pah-LAH-brah /</span>
+                                <span class="widget-translation" id="widget-rect-translation">word</span>
+                            </div>
+
+                            <!-- Circular Widget -->
+                            <div class="lockscreen-widget-circular" id="widget-circular-view" style="display: none;">
+                                <span class="widget-circular-flag" id="widget-circular-flag">🇪🇸</span>
+                                <span class="widget-circular-letters" id="widget-circular-letters">PAL</span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Lockscreen controls -->
+                        <div class="lockscreen-footer">
+                            <div class="quick-action-btn" title="Flashlight"><i class="fa-solid fa-lightbulb"></i></div>
+                            <div class="unlock-hint" id="unlock-hint-action">
+                                <div class="swipe-bar"></div>
+                                <p><i class="fa-solid fa-chevron-up animate-up"></i> Click screen to Unlock</p>
+                            </div>
+                            <div class="quick-action-btn" title="Camera"><i class="fa-solid fa-camera"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- NATIVE APP CONTAINER (Initially Hidden) -->
+                    <div class="screen-overlay" id="app-overlay" style="display: none;">
+                        <!-- App Status Bar -->
+                        <div class="app-status-bar">
+                            <span class="time" id="app-status-time">09:41</span>
+                            <div class="status-right">
+                                <i class="fa-solid fa-signal"></i>
+                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-battery-full"></i>
+                            </div>
+                        </div>
+
+                        <!-- App Header / Toolbar -->
+                        <div class="app-navbar">
+                            <div class="app-logo-area">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>LingoLock</span>
+                            </div>
+                            <button id="lock-phone-shortcut" title="Lock Device"><i class="fa-solid fa-lock"></i></button>
+                        </div>
+
+                        <!-- App Body Navigation Targets -->
+                        <div class="app-content-wrapper">
+                            
+                            <!-- TAB 1: LEARN (DASHBOARD) -->
+                            <div class="app-tab-panel" id="panel-learn">
+                                <div class="dashboard-header">
+                                    <div>
+                                        <span class="sub-label" id="dashboard-lang-label">SPANISH</span>
+                                        <h2>Daily Word</h2>
+                                    </div>
+                                    <div class="streak-badge">
+                                        <i class="fa-solid fa-fire"></i>
+                                        <span>5 Days</span>
+                                    </div>
+                                </div>
+
+                                <!-- Flip Card Card Container -->
+                                <div class="vocab-card-container">
+                                    <div class="vocab-card" id="main-vocab-card">
+                                        <!-- Front Side -->
+                                        <div class="card-side card-front">
+                                            <div class="card-header">
+                                                <span class="part-of-speech" id="card-pos">noun</span>
+                                                <button class="favorite-btn" id="favorite-btn"><i class="fa-regular fa-bookmark"></i></button>
+                                            </div>
+                                            
+                                            <div class="card-body">
+                                                <h1 id="card-foreign-word">palabra</h1>
+                                                <p class="pronunciation" id="card-pronunciation">/ pah-LAH-brah /</p>
+                                                
+                                                <button class="listen-btn" id="listen-speech-btn">
+                                                    <i class="fa-solid fa-volume-high"></i> Listen
+                                                </button>
+                                            </div>
+
+                                            <div class="card-footer-tip">
+                                                <span>Click card to reveal translation</span>
+                                                <i class="fa-solid fa-arrow-rotate-right"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Back Side -->
+                                        <div class="card-side card-back">
+                                            <div class="card-header">
+                                                <span class="part-of-speech" id="card-pos-back">noun</span>
+                                                <span class="back-badge">Translation</span>
+                                            </div>
+                                            
+                                            <div class="card-body-back">
+                                                <div class="translation-section">
+                                                    <span class="label">MEANING</span>
+                                                    <h2 id="card-translation">word</h2>
+                                                </div>
+                                                
+                                                <div class="meaning-section">
+                                                    <span class="label">DESCRIPTION</span>
+                                                    <p id="card-meaning">A single distinct meaningful element of speech or writing.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-footer-tip">
+                                                <span>Click card to show word</span>
+                                                <i class="fa-solid fa-arrow-rotate-right"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Example Sentence Panel -->
+                                <div class="example-panel">
+                                    <h3>Example Sentence</h3>
+                                    <div class="example-box">
+                                        <p class="sentence-foreign" id="card-example-foreign">"Esta palabra en español es muy hermosa."</p>
+                                        <p class="sentence-translation" id="card-example-translation">"This word in Spanish is very beautiful."</p>
+                                    </div>
+                                </div>
+
+                                <!-- Promotion / Lockscreen widget info -->
+                                <div class="widget-promotion">
+                                    <div class="promo-icon"><i class="fa-solid fa-lock"></i></div>
+                                    <div class="promo-text">
+                                        <h4>Lock Screen Active</h4>
+                                        <p>See this word every time you look at your phone!</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB 2: HISTORY -->
+                            <div class="app-tab-panel" id="panel-history" style="display: none;">
+                                <div class="history-header">
+                                    <h2>Vocabulary History</h2>
+                                    <div class="search-bar-wrapper">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="text" id="history-search" placeholder="Search learned words...">
+                                    </div>
+                                </div>
+
+                                <div class="history-list" id="history-list-container">
+                                    <!-- History items injected here dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- TAB 3: SETTINGS -->
+                            <div class="app-tab-panel" id="panel-settings" style="display: none;">
+                                <div class="settings-header">
+                                    <h2>Settings</h2>
+                                </div>
+
+                                <div class="settings-list">
+                                    <div class="settings-section">
+                                        <h4>LEARNING PATH</h4>
+                                        <div class="settings-row" id="settings-lang-row">
+                                            <div class="row-label">
+                                                <i class="fa-solid fa-language text-blue"></i>
+                                                <span>Target Language</span>
+                                            </div>
+                                            <span class="row-value" id="settings-current-lang">Spanish</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="settings-section">
+                                        <h4>WIDGET PLACEMENT GUIDE</h4>
+                                        <div class="guide-steps">
+                                            <div class="step-item">
+                                                <span class="step-num">1</span>
+                                                <p>Touch & hold iPhone Lock Screen, then tap <strong>Customize</strong>.</p>
+                                            </div>
+                                            <div class="step-item">
+                                                <span class="step-num">2</span>
+                                                <p>Tap the box <strong>below the time</strong> to open the widget library.</p>
+                                            </div>
+                                            <div class="step-item">
+                                                <span class="step-num">3</span>
+                                                <p>Select <strong>LingoLock</strong> and choose your favorite widget size.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="settings-section">
+                                        <h4>TECHNICAL STATUS</h4>
+                                        <div class="settings-row">
+                                            <div class="row-label">
+                                                <i class="fa-solid fa-square-share-nodes text-green"></i>
+                                                <span>App Group Configured</span>
+                                            </div>
+                                            <i class="fa-solid fa-circle-check text-green"></i>
+                                        </div>
+                                        <p class="settings-note">Shared container `group.com.language.wordoftheday` enables background updates to WidgetKit without launching the app.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- App Bottom Tab Bar -->
+                        <div class="app-tabbar">
+                            <button class="tab-item active" data-tab="learn">
+                                <i class="fa-solid fa-book-open"></i>
+                                <span>Learn</span>
+                            </button>
+                            <button class="tab-item" data-tab="history">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span>History</span>
+                            </button>
+                            <button class="tab-item" data-tab="settings">
+                                <i class="fa-solid fa-gear"></i>
+                                <span>Settings</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="iphone-home-indicator"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- CODE DIALOG MODAL -->
+    <div class="modal-backdrop" id="code-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-code"></i> Swift / WidgetKit Source Code</h2>
+                <button class="close-modal-btn" id="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="code-tabs">
+                <button class="code-tab-btn active" data-codefile="Word">Word.swift</button>
+                <button class="code-tab-btn" data-codefile="VocabularyData">VocabularyData.swift</button>
+                <button class="code-tab-btn" data-codefile="AppSettings">AppSettings.swift</button>
+                <button class="code-tab-btn" data-codefile="Widget">WordOfTheDayWidget.swift</button>
+            </div>
+
+            <div class="code-body">
+                <pre><code id="code-display-block"></code></pre>
+            </div>
+            
+            <div class="modal-footer">
+                <p>These files are created in <code class="file-path">/home/quan/language-lockscreen-app/ios/</code>. Drag them into Xcode to build.</p>
+                <button class="primary-btn" id="close-modal-footer-btn">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
