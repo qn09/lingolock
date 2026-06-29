@@ -9,13 +9,12 @@ targets:
     sources:
       - path: ios/WordOfTheDay
       - path: ios/Shared
-    entitlements:
-      path: ios/WordOfTheDay/WordOfTheDay.entitlements
     dependencies:
       - target: WordOfTheDayWidget
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.language.wordoftheday
       TARGETED_DEVICE_FAMILY: "1" # iPhone only
+      CODE_SIGN_ENTITLEMENTS: ios/WordOfTheDay/WordOfTheDay.entitlements
 
   WordOfTheDayWidget:
     type: app-extension
@@ -24,8 +23,6 @@ targets:
     sources:
       - path: ios/WordOfTheDayWidget
       - path: ios/Shared
-    entitlements:
-      path: ios/WordOfTheDayWidget/WordOfTheDayWidget.entitlements
     info:
       plist:
         NSExtension:
@@ -33,3 +30,4 @@ targets:
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.language.wordoftheday.widget
       TARGETED_DEVICE_FAMILY: "1"
+      CODE_SIGN_ENTITLEMENTS: ios/WordOfTheDayWidget/WordOfTheDayWidget.entitlements
