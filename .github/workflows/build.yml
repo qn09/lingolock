@@ -45,6 +45,7 @@ jobs:
             -project WordOfTheDay.xcodeproj \
             -scheme WordOfTheDay \
             -sdk iphoneos \
+            -destination "generic/platform=iOS" \
             -configuration Release \
             -archivePath WordOfTheDay.xcarchive \
             CODE_SIGNING_ALLOWED=NO \
