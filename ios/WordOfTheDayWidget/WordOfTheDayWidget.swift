@@ -5,9 +5,9 @@ struct Provider: TimelineProvider {
     typealias Entry = SimpleEntry
     
     func placeholder(in context: Context) -> SimpleEntry {
-        let sampleWord = Word(foreignWord: "serendipity", translation: "happy accident", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
+        let sampleWord = Word(foreignWord: "serendipity", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
                               meaning: "The occurrence and development of events by chance in a happy or beneficial way.",
-                              exampleForeign: "Meeting my old friend at the airport was pure serendipity.", exampleTranslation: "Meeting my old friend at the airport was pure serendipity.", language: "English")
+                              exampleForeign: "Meeting my old friend at the airport was pure serendipity.", language: "English")
         return SimpleEntry(date: Date(), word: sampleWord)
     }
 
@@ -19,66 +19,33 @@ struct Provider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        Task {
-            var entries: [SimpleEntry] = []
-            let language = getSelectedLanguage()
-            let apiKey = getApiKey()
+        var entries: [SimpleEntry] = []
+        let language = getSelectedLanguage()
+        
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        for dayOffset in 0..<3 {
+            guard let entryDate = calendar.date(byAdding: .day, value: dayOffset, to: currentDate) else { continue }
+            let midnightDate = calendar.startOfDay(for: entryDate)
             
-            let currentDate = Date()
-            let calendar = Calendar.current
+            let wordForDay = getOfflineWord(for: language, date: midnightDate)
             
-            for dayOffset in 0..<3 {
-                guard let entryDate = calendar.date(byAdding: .day, value: dayOffset, to: currentDate) else { continue }
-                let midnightDate = calendar.startOfDay(for: entryDate)
-                
-                let wordForDay: Word
-                if !apiKey.isEmpty {
-                    if let savedWord = AppSettings.shared.getSavedWord(for: midnightDate, language: language) {
-                        wordForDay = savedWord
-                    } else {
-                        do {
-                            let excludeList = getSeenWordsList()
-                            let fetched = try await GeminiService.shared.fetchVocabularyWord(for: language, apiKey: apiKey, excludeWords: excludeList)
-                            AppSettings.shared.saveWord(fetched, for: midnightDate, language: language)
-                            wordForDay = fetched
-                        } catch {
-                            // Fallback to offline if API fails
-                            wordForDay = getOfflineWord(for: language, date: midnightDate)
-                        }
-                    }
-                } else {
-                    wordForDay = getOfflineWord(for: language, date: midnightDate)
-                }
-                
-                let triggerDate = dayOffset == 0 ? currentDate : midnightDate
-                let entry = SimpleEntry(date: triggerDate, word: wordForDay)
-                entries.append(entry)
-            }
-
-            let tomorrow = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
-            let nextMidnight = calendar.startOfDay(for: tomorrow)
-            let timeline = Timeline(entries: entries, policy: .after(nextMidnight))
-            completion(timeline)
+            let triggerDate = dayOffset == 0 ? currentDate : midnightDate
+            let entry = SimpleEntry(date: triggerDate, word: wordForDay)
+            entries.append(entry)
         }
+
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
+        let nextMidnight = calendar.startOfDay(for: tomorrow)
+        let timeline = Timeline(entries: entries, policy: .after(nextMidnight))
+        completion(timeline)
     }
     
     private func getSelectedLanguage() -> String {
         let appGroupId = "group.com.language.wordoftheday"
         let defaults = UserDefaults(suiteName: appGroupId)
         return defaults?.string(forKey: "selected_language") ?? "English"
-    }
-    
-    private func getApiKey() -> String {
-        let appGroupId = "group.com.language.wordoftheday"
-        let defaults = UserDefaults(suiteName: appGroupId)
-        let savedKey = defaults?.string(forKey: "gemini_api_key") ?? ""
-        return savedKey.isEmpty ? Secrets.geminiApiKey : savedKey
-    }
-    
-    private func getSeenWordsList() -> [String] {
-        let appGroupId = "group.com.language.wordoftheday"
-        let defaults = UserDefaults(suiteName: appGroupId)
-        return defaults?.stringArray(forKey: "seen_words_list") ?? []
     }
     
     private func getOfflineWord(for language: String, date: Date) -> Word {
@@ -128,7 +95,7 @@ struct InlineWidgetView: View {
     var body: some View {
         HStack(spacing: 4) {
             Text(languageFlag(word.language))
-            Text("\(word.foreignWord): \(word.translation)")
+            Text("\(word.foreignWord)" + (word.translation.isEmpty ? "" : " - \(word.translation)"))
                 .fontWeight(.semibold)
         }
     }
@@ -150,17 +117,25 @@ struct RectangularWidgetView: View {
                     .font(.caption)
             }
             
-            Text("/ \(word.pronunciation) /")
-                .font(.system(size: 10))
-                .foregroundColor(.secondary)
-                .italic()
+            if !word.formattedPronunciation.isEmpty {
+                Text(word.formattedPronunciation)
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+                    .italic()
+            }
             
             Spacer(minLength: 0)
             
-            Text(word.translation)
-                .font(.body)
-                .fontWeight(.medium)
-                .lineLimit(1)
+            if !word.translation.isEmpty {
+                Text(word.translation)
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .lineLimit(1)
+            } else {
+                Text(word.partOfSpeech.capitalized)
+                    .font(.system(size: 10, weight: .semibold))
+                    .foregroundColor(.secondary)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -181,7 +156,6 @@ struct CircularWidgetView: View {
         }
     }
 }
-
 // MARK: - Home Screen Widgets
 
 struct SmallWidgetView: View {
@@ -209,18 +183,27 @@ struct SmallWidgetView: View {
                     .minimumScaleFactor(0.7)
                     .lineLimit(1)
                 
-                Text(word.translation)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
+                if !word.formattedPronunciation.isEmpty {
+                    Text(word.formattedPronunciation)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .italic()
+                }
+                
+                if !word.translation.isEmpty {
+                    Text(word.translation)
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
             }
             
             Spacer()
             
-            Text("Word of the Day")
+            Text("Tap to reveal meaning")
                 .font(.system(size: 10, weight: .semibold))
-                .foregroundColor(.secondary)
+                .foregroundColor(.blue)
                 .tracking(0.5)
         }
         .padding()
@@ -252,15 +235,24 @@ struct MediumWidgetView: View {
                     .minimumScaleFactor(0.8)
                     .lineLimit(1)
                 
-                Text("/ \(word.pronunciation) /")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .italic()
+                if !word.formattedPronunciation.isEmpty {
+                    Text(word.formattedPronunciation)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .italic()
+                }
                 
-                Text(word.translation)
-                    .font(.headline)
-                    .foregroundColor(.blue)
-                    .lineLimit(1)
+                if !word.translation.isEmpty {
+                    Text(word.translation)
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .lineLimit(2)
+                } else {
+                    Text("Tap to reveal meaning")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.blue)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -271,16 +263,12 @@ struct MediumWidgetView: View {
                     .font(.system(size: 8, weight: .bold))
                     .foregroundColor(.secondary)
                 
-                Text(word.exampleForeign)
-                    .font(.subheadline)
-                    .italic()
-                    .lineLimit(3)
-                    .minimumScaleFactor(0.8)
-                
-                Text(word.exampleTranslation)
-                    .font(.caption)
+                Text("Tap widget to open LingoLock and view example sentence usage.")
+                    .font(.caption2)
                     .foregroundColor(.secondary)
-                    .lineLimit(2)
+                    .italic()
+                    .lineLimit(4)
+                    .minimumScaleFactor(0.8)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -330,9 +318,9 @@ struct WordOfTheDayWidget: Widget {
 
 struct WordOfTheDayWidget_Previews: PreviewProvider {
     static var previews: some View {
-        let sampleWord = Word(foreignWord: "serendipity", translation: "happy accident", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
+        let sampleWord = Word(foreignWord: "serendipity", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
                               meaning: "The occurrence and development of events by chance in a happy or beneficial way.",
-                              exampleForeign: "Meeting my old friend at the airport was pure serendipity.", exampleTranslation: "Meeting my old friend at the airport was pure serendipity.", language: "English")
+                              exampleForeign: "Meeting my old friend at the airport was pure serendipity.", language: "English")
         WordOfTheDayWidgetEntryView(entry: SimpleEntry(date: Date(), word: sampleWord))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
     }

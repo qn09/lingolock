@@ -188,16 +188,10 @@ let isPhoneLocked = true;
 let activeTab = "learn";
 let widgetStyle = "rectangular";
 
-let geminiApiKey = localStorage.getItem("gemini_api_key") || "";
-let geminiModel = localStorage.getItem("gemini_model") || "gemini-2.5-flash";
+// Gemini configuration removed
 
-// Daily AI generated words cache, dictionary of date string to Word: [Language_YYYY-MM-DD : Word]
-let dailyAiWords = {};
-try {
-    dailyAiWords = JSON.parse(localStorage.getItem("daily_ai_words")) || {};
-} catch (e) {
-    console.error("Failed to parse daily AI words cache", e);
-}
+// Daily Firebase words cache, dictionary of date string to Word: [Language_YYYY-MM-DD : Word]
+let dailyAiWords = {}; // Start with a fresh cache on startup to force Firebase sync
 
 // Global list of seen words to prevent duplicates
 let seenWords = [];
@@ -255,7 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     bindEvents();
     syncData();
-    loadEnvConfigs(); // Load API key and model config from .env if present
 });
 
 // --- CLOCK & DATE HANDLING ---
@@ -301,23 +294,21 @@ function getCurrentWord() {
     // Get fallback offline word
     const langWords = vocabulary[selectedLanguage] || [];
     
-    // Auto-trigger background AI fetch if API Key is configured and we aren't currently fetching
-    if (geminiApiKey && geminiApiKey.trim() && !isFetchingWord) {
+    // Auto-trigger background Firestore fetch if we aren't currently fetching
+    if (!isFetchingWord && !window.failedFetches?.[dateKey]) {
         autoFetchAIWord(dateKey, selectedLanguage);
     }
     
     if (langWords.length === 0) {
         return {
-            foreignWord: "LingoLock GRE",
-            translation: "No Word Generated",
-            pronunciation: "lee-ngoh-lok",
+            foreignWord: selectedLanguage === "English" ? "LingoLock English" : "LingoLock 日本語",
+            pronunciation: "...",
             partOfSpeech: "noun",
-            meaning: "Please configure your Gemini API Key in Settings to automatically generate and display your daily GRE words.",
-            exampleForeign: "Open Settings tab to configure.",
-            exampleTranslation: "Open Settings tab to configure.",
+            meaning: `Syncing your daily vocabulary from Firebase Firestore...`,
+            exampleForeign: "Syncing...",
             language: selectedLanguage,
             flag: selectedLanguage === "English" ? "🇬🇧" : "🇯🇵",
-            bcp47: selectedLanguage === "English" ? "en-US" : "ja-JP"
+            bcp47: selectedLanguage === "English" ? "en-GB" : "ja-JP"
         };
     }
     
@@ -333,6 +324,7 @@ function getCurrentWord() {
 // --- STATE SYNCHRONIZATION ---
 function syncData() {
     const word = getCurrentWord();
+    const formattedPron = formatPronunciation(word.pronunciation);
     
     // Update Dashboard card labels
     document.getElementById("dashboard-lang-label").textContent = selectedLanguage.toUpperCase();
@@ -340,16 +332,20 @@ function syncData() {
     // Card Front Details
     document.getElementById("card-pos").textContent = word.partOfSpeech;
     document.getElementById("card-foreign-word").textContent = word.foreignWord;
-    document.getElementById("card-pronunciation").textContent = `/ ${word.pronunciation} /`;
+    const translationFront = document.getElementById("card-translation-front");
+    if (translationFront) {
+        translationFront.textContent = word.translation || "";
+    }
+    const cardPron = document.getElementById("card-pronunciation");
+    cardPron.textContent = formattedPron;
+    cardPron.style.display = formattedPron ? "block" : "none";
     
     // Card Back Details
     document.getElementById("card-pos-back").textContent = word.partOfSpeech;
-    document.getElementById("card-translation").textContent = word.translation;
     document.getElementById("card-meaning").textContent = word.meaning;
     
     // Examples Details
     document.getElementById("card-example-foreign").textContent = `"${word.exampleForeign}"`;
-    document.getElementById("card-example-translation").textContent = `"${word.exampleTranslation}"`;
     
     // Update Bookmarked State on Front Card
     if (favorites.has(word.foreignWord)) {
@@ -362,8 +358,10 @@ function syncData() {
     
     // Update Lock Screen Rectangular Widget View
     document.getElementById("widget-rect-word").textContent = word.foreignWord;
-    document.getElementById("widget-rect-pronunciation").textContent = `/ ${word.pronunciation} /`;
-    document.getElementById("widget-rect-translation").textContent = word.translation;
+    const widgetRectPron = document.getElementById("widget-rect-pronunciation");
+    widgetRectPron.textContent = formattedPron;
+    widgetRectPron.style.display = formattedPron ? "block" : "none";
+    document.getElementById("widget-rect-translation").textContent = word.translation || word.partOfSpeech.toUpperCase();
     document.getElementById("widget-rect-flag").textContent = word.flag;
     
     // Update Lock Screen Circular Widget View
@@ -373,32 +371,29 @@ function syncData() {
     document.getElementById("widget-circular-letters").textContent = displayLetters;
     
     // Update Lock Screen Inline Widget View
+    const inlineText = word.foreignWord + (word.translation ? ` - ${word.translation}` : (formattedPron ? ` ${formattedPron}` : ""));
     document.querySelector(".widget-inline-content").innerHTML = `
         <span class="widget-flag">${word.flag}</span> 
-        <span class="widget-inline-text">${word.foreignWord}: ${word.translation}</span>
+        <span class="widget-inline-text">${inlineText}</span>
     `;
     
     // Settings view lang label update
     document.getElementById("settings-current-lang").textContent = selectedLanguage;
     
-    // Update AI Banner and Key hints
+    // Update Firebase Status and Sync button
     const webAiStatus = document.getElementById("web-ai-status");
     const webAiKeyHint = document.getElementById("web-ai-key-hint");
+    const webAiGenerateBtn = document.getElementById("web-ai-generate-btn");
     
-    if (geminiApiKey && geminiApiKey.trim()) {
-        webAiStatus.style.display = "flex";
-        webAiKeyHint.style.display = "none";
-        
-        // If current word is an AI-generated word, change the badge to show it
-        const dateKey = getSimulatedDateKey();
-        if (dailyAiWords[dateKey]) {
-            webAiStatus.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles text-purple"></i> <span>AI Active &bull; Auto-generated daily</span>';
-        } else {
-            webAiStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-purple"></i> <span>AI Loading &bull; Fetching from Gemini...</span>';
-        }
+    webAiStatus.style.display = "flex";
+    webAiKeyHint.style.display = "block";
+    if (webAiGenerateBtn) webAiGenerateBtn.style.display = "flex";
+    
+    const dateKey = getSimulatedDateKey();
+    if (dailyAiWords[dateKey]) {
+        webAiStatus.innerHTML = '<i class="fa-solid fa-cloud text-blue"></i> <span>Firebase Connected</span>';
     } else {
-        webAiStatus.style.display = "none";
-        webAiKeyHint.style.display = "block";
+        webAiStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-blue"></i> <span>Syncing...</span>';
     }
     
     // Update History Tab
@@ -474,18 +469,24 @@ function renderHistory() {
                 // Populate Dashboard card temporarily with this word
                 document.getElementById("card-pos").textContent = wordObj.partOfSpeech;
                 document.getElementById("card-foreign-word").textContent = wordObj.foreignWord;
-                document.getElementById("card-pronunciation").textContent = `/ ${wordObj.pronunciation} /`;
+                const translationFront = document.getElementById("card-translation-front");
+                if (translationFront) {
+                    translationFront.textContent = wordObj.translation || "";
+                }
+                const formattedObjPron = formatPronunciation(wordObj.pronunciation);
+                const cardPron = document.getElementById("card-pronunciation");
+                cardPron.textContent = formattedObjPron;
+                cardPron.style.display = formattedObjPron ? "block" : "none";
                 document.getElementById("card-pos-back").textContent = wordObj.partOfSpeech;
-                document.getElementById("card-translation").textContent = wordObj.translation;
                 document.getElementById("card-meaning").textContent = wordObj.meaning;
                 document.getElementById("card-example-foreign").textContent = `"${wordObj.exampleForeign}"`;
-                document.getElementById("card-example-translation").textContent = `"${wordObj.exampleTranslation}"`;
                 
                 // Show learn tab
                 switchTab("learn");
                 
                 // Reset card flip
                 mainVocabCard.classList.remove("flipped");
+                updateExamplePanelVisibility();
             }
         });
     });
@@ -557,6 +558,7 @@ function bindEvents() {
             return;
         }
         mainVocabCard.classList.toggle("flipped");
+        updateExamplePanelVisibility();
     });
     
     // Pronunciation Synthesizer
@@ -595,140 +597,101 @@ function bindEvents() {
         });
     });
     
-    // Gemini API settings row sync
-    const webApiKeyField = document.getElementById("web-api-key");
-    if (webApiKeyField) {
-        webApiKeyField.value = geminiApiKey;
-        webApiKeyField.addEventListener("input", (e) => {
-            geminiApiKey = e.target.value;
-            localStorage.setItem("gemini_api_key", geminiApiKey);
-            syncData();
+    // Sync button event listener
+    const webAiGenerateBtn = document.getElementById("web-ai-generate-btn");
+    if (webAiGenerateBtn) {
+        webAiGenerateBtn.addEventListener("click", () => {
+            const dateKey = getSimulatedDateKey();
+            const language = document.getElementById("language-select").value;
+            autoFetchAIWord(dateKey, language, true);
         });
     }
-    
 }
 
-async function autoFetchAIWord(dateKey, language) {
-    if (!geminiApiKey.trim() || isFetchingWord) return;
+window.failedFetches = window.failedFetches || {};
+
+async function autoFetchAIWord(dateKey, language, force = false) {
+    if (isFetchingWord) return;
     
     isFetchingWord = true;
+    if (force) {
+        window.failedFetches[dateKey] = false;
+    }
     syncData(); // Show loader spinner in syncData
     
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
-    
-    // Add seen words array to prompt dynamically to guarantee no duplicate generation
-    let excludePrompt = "";
-    if (seenWords.length > 0) {
-        excludePrompt = ` IMPORTANT: Do not choose any of the following previously generated words: [${seenWords.join(", ")}]. You must select a completely new and unique word.`;
-    }
-    
-    const prompt = language === "English" 
-        ? `Generate a high-yield, academic English vocabulary word commonly found in the GRE exam (Graduate Record Examinations) for graduate-level verbal reasoning preparation. Focus on advanced, precise, or challenging words. The 'translation' field should be a 1-3 word simplified synonym. The explanation, meaning, and example sentences should all be in English. Do not use translation languages like Vietnamese.${excludePrompt}`
-        : `Generate a useful Japanese vocabulary word (written in Kanji or Kana, e.g. 木漏れ日). The 'translation' field should be the English meaning. The pronunciation should be romaji. The meaning and exampleTranslation should be written in English. The exampleForeign must be in Japanese.${excludePrompt}`;
-        
-    const payload = {
-        contents: [
-            { parts: [{ text: prompt }] }
-        ],
-        generationConfig: {
-            responseMimeType: "application/json",
-            responseSchema: {
-                type: "OBJECT",
-                properties: {
-                    foreignWord: { type: "STRING" },
-                    translation: { type: "STRING" },
-                    pronunciation: { type: "STRING" },
-                    partOfSpeech: { type: "STRING" },
-                    meaning: { type: "STRING" },
-                    exampleForeign: { type: "STRING" },
-                    exampleTranslation: { type: "STRING" },
-                    language: { type: "STRING" }
-                },
-                required: ["foreignWord", "translation", "pronunciation", "partOfSpeech", "meaning", "exampleForeign", "exampleTranslation", "language"]
-            }
-        }
-    };
-    
     try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
+        const projectId = "web1-d1df7";
+        const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/words`;
         
+        const response = await fetch(url);
         if (!response.ok) {
-            const errData = await response.json();
-            throw new Error(errData.error?.message || "Received invalid response from Gemini servers.");
+            throw new Error("Failed to fetch words from Firestore database.");
         }
         
         const data = await response.json();
-        const rawText = data.candidates[0].content.parts[0].text;
-        const word = JSON.parse(rawText.trim());
+        const documents = data.documents;
+        if (!documents || documents.length === 0) {
+            throw new Error("No words found in Firestore. Make sure you populated the database.");
+        }
         
-        // Populate standard simulated items
-        word.id = Math.random().toString(36).substring(7);
-        word.language = language;
-        word.flag = language === "English" ? "🇬🇧" : "🇯🇵";
-        word.bcp47 = language === "English" ? "en-GB" : "ja-JP";
+        // Filter by language
+        const langWords = documents.filter(doc => {
+            const fields = doc.fields;
+            return fields && fields.language && fields.language.stringValue === language;
+        });
+        
+        if (langWords.length === 0) {
+            throw new Error(`No words found for language: ${language}`);
+        }
+        
+        // Pick index
+        let index;
+        if (force) {
+            index = Math.floor(Math.random() * langWords.length);
+        } else {
+            const simDate = getSimulatedDate();
+            const start = new Date(simDate.getFullYear(), 0, 0);
+            const diff = simDate - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            index = (dayOfYear - 1) % langWords.length;
+        }
+        
+        const doc = langWords[index];
+        const fields = doc.fields;
+        
+        const word = {
+            id: doc.name.split("/").pop(),
+            foreignWord: fields.foreignWord?.stringValue || "",
+            pronunciation: fields.pronunciation?.stringValue || "",
+            partOfSpeech: fields.partOfSpeech?.stringValue || "noun",
+            meaning: fields.meaning?.stringValue || "",
+            exampleForeign: fields.exampleForeign?.stringValue || "",
+            language: language,
+            flag: language === "English" ? "🇬🇧" : "🇯🇵",
+            bcp47: language === "English" ? "en-GB" : "ja-JP"
+        };
         
         // Save to cache
         dailyAiWords[dateKey] = word;
         localStorage.setItem("daily_ai_words", JSON.stringify(dailyAiWords));
         
-        // Record in duplicate prevention list
-        const lowerWord = word.foreignWord.toLowerCase().trim();
-        if (!seenWords.includes(lowerWord)) {
-            seenWords.push(lowerWord);
-            localStorage.setItem("seen_words", JSON.stringify(seenWords));
-        }
-        
         // Reset card flip
         mainVocabCard.classList.remove("flipped");
+        updateExamplePanelVisibility();
+        window.failedFetches[dateKey] = false;
         
     } catch (e) {
-        console.error("Auto AI Generation Error:", e.message);
+        console.error("Firestore fetch error:", e.message);
+        window.failedFetches[dateKey] = true;
+        alert(`Firebase fetch error: ${e.message}`);
     } finally {
         isFetchingWord = false;
         syncData();
     }
 }
 
-async function loadEnvConfigs() {
-    try {
-        const response = await fetch('/.env');
-        if (response.ok) {
-            const text = await response.text();
-            
-            // Extract GEMINI_API_KEY
-            const keyMatch = text.match(/GEMINI_API_KEY\s*=\s*["']?([^"'\r\n#]+)["']?/);
-            if (keyMatch && keyMatch[1]) {
-                const loadedKey = keyMatch[1].trim();
-                if (loadedKey && loadedKey !== "YOUR_API_KEY_HERE") {
-                    geminiApiKey = loadedKey;
-                    localStorage.setItem("gemini_api_key", geminiApiKey);
-                    
-                    const webApiKeyField = document.getElementById("web-api-key");
-                    if (webApiKeyField) {
-                        webApiKeyField.value = geminiApiKey;
-                    }
-                }
-            }
-            
-            // Extract GEMINI_MODEL
-            const modelMatch = text.match(/GEMINI_MODEL\s*=\s*["']?([^"'\r\n#]+)["']?/);
-            if (modelMatch && modelMatch[1]) {
-                geminiModel = modelMatch[1].trim();
-                localStorage.setItem("gemini_model", geminiModel);
-            }
-            
-            syncData();
-        }
-    } catch (e) {
-        console.warn("No local .env file found or accessible. Using manual settings.", e);
-    }
-}
+// loadEnvConfigs removed
 
 function updateDateLabel() {
     if (dateOffset === 0) {
@@ -778,6 +741,7 @@ function lockPhone() {
     
     // Reset flip state when locking
     mainVocabCard.classList.remove("flipped");
+    updateExamplePanelVisibility();
 }
 
 function switchTab(tabName) {
@@ -851,4 +815,26 @@ function renderCodeContent(fileKey) {
     // Clean and escape any HTML tags if necessary, but here we just assign directly to code block
     // since it's inside a <pre><code> block
     codeDisplayBlock.textContent = rawCode;
+}
+
+function updateExamplePanelVisibility() {
+    const examplePanel = document.querySelector(".example-panel");
+    const mainVocabCard = document.getElementById("main-vocab-card");
+    if (examplePanel && mainVocabCard) {
+        if (mainVocabCard.classList.contains("flipped")) {
+            examplePanel.style.display = "flex";
+        } else {
+            examplePanel.style.display = "none";
+        }
+    }
+}
+
+function formatPronunciation(pron) {
+    if (!pron || pron.trim() === "") {
+        return "";
+    }
+    let p = pron.trim();
+    if (p.startsWith("/")) p = p.substring(1);
+    if (p.endsWith("/")) p = p.substring(0, p.length - 1);
+    return `/ ${p.trim()} /`;
 }

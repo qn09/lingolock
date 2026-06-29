@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Interactive Language Learning Lockscreen Simulator",
   "scripts": {
-    "dev": "cp .env web/.env 2>/dev/null || true; npx -y http-server web -p 3000"
+    "dev": "cp .env web/.env 2>/dev/null || true; npx -y http-server web -p 3000 -c-1"
   },
   "keywords": [],
   "author": "",

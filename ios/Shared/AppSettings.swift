@@ -26,14 +26,6 @@ public class AppSettings: ObservableObject {
         }
     }
     
-    @Published public var geminiApiKey: String {
-        didSet {
-            sharedDefaults?.set(geminiApiKey, forKey: Keys.geminiApiKey)
-            sharedDefaults?.synchronize()
-            WidgetRefresher.refresh()
-        }
-    }
-    
     // Daily AI generated words cache, dictionary of date string to Word: [Language_YYYY-MM-DD : Word]
     @Published public var dailyAiWords: [String: Word] {
         didSet {
@@ -67,15 +59,7 @@ public class AppSettings: ObservableObject {
         // Load selected language, default to "English" if not set
         self.selectedLanguage = sharedDefaults?.string(forKey: Keys.selectedLanguage) ?? "English"
         
-        // Load gemini API key, falling back to build-time environment variable if no custom key is saved on-device
-        let savedKey = sharedDefaults?.string(forKey: Keys.geminiApiKey) ?? ""
-        if savedKey.isEmpty {
-            self.geminiApiKey = Secrets.geminiApiKey
-        } else {
-            self.geminiApiKey = savedKey
-        }
-        
-        // Load daily AI words cache
+        // Load daily AI words cache (now used for Firebase words)
         if let data = sharedDefaults?.data(forKey: Keys.dailyAiWords),
            let cache = try? JSONDecoder().decode([String: Word].self, from: data) {
             self.dailyAiWords = cache

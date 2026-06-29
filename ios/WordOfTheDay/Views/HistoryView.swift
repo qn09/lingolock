@@ -14,7 +14,7 @@ struct HistoryView: View {
         } else {
             return historyWords.filter {
                 $0.foreignWord.localizedCaseInsensitiveContains(searchText) ||
-                $0.translation.localizedCaseInsensitiveContains(searchText)
+                $0.meaning.localizedCaseInsensitiveContains(searchText)
             }
         }
     }
@@ -30,16 +30,17 @@ struct HistoryView: View {
                             .padding()
                     } else {
                         ForEach(filteredWords) { word in
-                            NavigationLink(destination: WordDetailView(word: word)) {
+                             NavigationLink(destination: WordDetailView(word: word)) {
                                 HStack(spacing: 16) {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(word.foreignWord)
                                             .font(.headline)
                                             .fontWeight(.bold)
                                         
-                                        Text(word.translation)
+                                        Text(word.meaning)
                                             .font(.subheadline)
                                             .foregroundColor(.secondary)
+                                            .lineLimit(1)
                                     }
                                     
                                     Spacer()
@@ -99,23 +100,13 @@ struct WordDetailView: View {
             
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("TRANSLATION")
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.secondary)
-                    Text(word.translation)
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                }
-                
-                VStack(alignment: .leading, spacing: 4) {
                     Text("MEANING")
                         .font(.caption2)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
                     Text(word.meaning)
                         .font(.body)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.primary)
                 }
                 
                 Divider()
@@ -128,9 +119,6 @@ struct WordDetailView: View {
                     Text(word.exampleForeign)
                         .font(.body)
                         .italic()
-                    Text(word.exampleTranslation)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
                 }
             }
             .padding(24)

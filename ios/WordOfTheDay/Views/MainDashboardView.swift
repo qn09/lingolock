@@ -46,33 +46,34 @@ struct MainDashboardView: View {
                 .padding(.horizontal)
                 .padding(.top, 16)
                 
-                // AI status banner
-                if settings.geminiApiKey.isEmpty {
-                    HStack {
-                        Image(systemName: "info.circle")
-                            .foregroundColor(.secondary)
-                            .font(.caption)
-                        Text("Connect Gemini in Settings to enable automated daily AI words.")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                        Spacer()
+                // Firebase sync button
+                HStack {
+                    Image(systemName: "cloud")
+                        .foregroundColor(.blue)
+                        .font(.caption)
+                    Text("Firebase Connected")
+                        .font(.caption2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                    Button(action: {
+                        VocabularyData.forceGenerateNewWord(for: settings.selectedLanguage)
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                            Text("Sync")
+                        }
+                        .font(.caption2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Color.blue)
+                        .cornerRadius(10)
                     }
-                    .padding(.horizontal)
-                    .padding(.top, -8)
-                } else {
-                    HStack {
-                        Image(systemName: "sparkles")
-                            .foregroundColor(.purple)
-                            .font(.caption)
-                        Text("AI Active • Auto-generated daily")
-                            .font(.caption2)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                    }
-                    .padding(.horizontal)
-                    .padding(.top, -8)
                 }
+                .padding(.horizontal)
+                .padding(.top, -8)
                 
                 // Word Card Panel
                 VStack(spacing: 20) {
@@ -112,10 +113,20 @@ struct MainDashboardView: View {
                                 }
                             }
                         
-                        Text("/ \(currentWord.pronunciation) /")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .italic()
+                        if !currentWord.translation.isEmpty {
+                            Text(currentWord.translation)
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.secondary)
+                                .padding(.top, 2)
+                        }
+                        
+                        if !currentWord.formattedPronunciation.isEmpty {
+                            Text(currentWord.formattedPronunciation)
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                                .italic()
+                        }
                     }
                     .padding(.vertical, 16)
                     
@@ -137,61 +148,68 @@ struct MainDashboardView: View {
                     Divider()
                         .padding(.vertical, 8)
                     
-                    // Meaning & Translation
-                    VStack(alignment: .leading, spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("TRANSLATION")
-                                .font(.caption2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.secondary)
-                            Text(currentWord.translation)
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.primary)
-                        }
-                        
+                    if isCardFlipped {
+                        // Meaning Card
                         VStack(alignment: .leading, spacing: 4) {
                             Text("MEANING")
                                 .font(.caption2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.secondary)
                             Text(currentWord.meaning)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                    } else {
+                        // Tap to reveal helper
+                        VStack(spacing: 8) {
+                            Image(systemName: "eye.slash.fill")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                            Text("Tap Card to Reveal Meaning")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(.vertical, 12)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(24)
                 .background(Color(.systemBackground))
                 .cornerRadius(24)
                 .shadow(color: Color.black.opacity(0.06), radius: 15, x: 0, y: 10)
+                .onTapGesture {
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                        isCardFlipped.toggle()
+                    }
+                }
                 .padding(.horizontal)
                 
                 // Example Sentence Card
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Example Sentence")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .padding(.horizontal)
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(currentWord.exampleForeign)
-                            .font(.body)
-                            .fontWeight(.medium)
-                            .foregroundColor(.primary)
-                            .italic()
+                if isCardFlipped {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("Example Sentence")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .padding(.horizontal)
                         
-                        Text(currentWord.exampleTranslation)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text(currentWord.exampleForeign)
+                                .font(.body)
+                                .fontWeight(.medium)
+                                .foregroundColor(.primary)
+                                .italic()
+                        }
+                        .padding(20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.blue.opacity(0.05))
+                        .cornerRadius(16)
+                        .padding(.horizontal)
                     }
-                    .padding(20)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.blue.opacity(0.05))
-                    .cornerRadius(16)
-                    .padding(.horizontal)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
                 }
                 
                 // Lockscreen Tip Card

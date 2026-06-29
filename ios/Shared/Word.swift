@@ -1,24 +1,31 @@
 import Foundation
 
 public struct Word: Codable, Identifiable, Hashable {
-    public let id: UUID
+    public let id: String
     public let foreignWord: String
-    public let translation: String
+    public let translation: String // Translation in native language (e.g. Japanese or English)
     public let pronunciation: String // Phonetic spelling or transcription
     public let partOfSpeech: String // e.g., "noun", "verb", "adjective"
     public let meaning: String // Detailed explanation
     public let exampleForeign: String // Example sentence in target language
-    public let exampleTranslation: String // Example sentence translated
     public let language: String // e.g., "English", "Japanese"
     
-    public init(id: UUID = UUID(),
+    public var formattedPronunciation: String {
+        let trimmed = pronunciation.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return "" }
+        var clean = trimmed
+        if clean.hasPrefix("/") { clean.removeFirst() }
+        if clean.hasSuffix("/") { clean.removeLast() }
+        return "/ \(clean.trimmingCharacters(in: .whitespaces)) /"
+    }
+    
+    public init(id: String = UUID().uuidString,
                 foreignWord: String,
-                translation: String,
+                translation: String = "",
                 pronunciation: String,
                 partOfSpeech: String,
                 meaning: String,
                 exampleForeign: String,
-                exampleTranslation: String,
                 language: String) {
         self.id = id
         self.foreignWord = foreignWord
@@ -27,7 +34,6 @@ public struct Word: Codable, Identifiable, Hashable {
         self.partOfSpeech = partOfSpeech
         self.meaning = meaning
         self.exampleForeign = exampleForeign
-        self.exampleTranslation = exampleTranslation
         self.language = language
     }
 }

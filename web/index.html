@@ -209,6 +209,7 @@
                                             
                                             <div class="card-body">
                                                 <h1 id="card-foreign-word">palabra</h1>
+                                                <p class="translation-front" id="card-translation-front" style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 4px; font-weight: 600;"></p>
                                                 <p class="pronunciation" id="card-pronunciation">/ pah-LAH-brah /</p>
                                                 
                                                 <button class="listen-btn" id="listen-speech-btn">
@@ -226,18 +227,12 @@
                                         <div class="card-side card-back">
                                             <div class="card-header">
                                                 <span class="part-of-speech" id="card-pos-back">noun</span>
-                                                <span class="back-badge">Translation</span>
                                             </div>
                                             
                                             <div class="card-body-back">
                                                 <div class="translation-section">
                                                     <span class="label">MEANING</span>
-                                                    <h2 id="card-translation">word</h2>
-                                                </div>
-                                                
-                                                <div class="meaning-section">
-                                                    <span class="label">DESCRIPTION</span>
-                                                    <p id="card-meaning">A single distinct meaningful element of speech or writing.</p>
+                                                    <h2 id="card-meaning" style="font-size: 1.5rem; margin-top: 10px; font-weight: 600; line-height: 1.4;">word description</h2>
                                                 </div>
                                             </div>
 
@@ -250,13 +245,16 @@
                                 </div>
 
                                 <!-- AI Generator Banner -->
-                                <div class="ai-generator-banner-container">
+                                <div class="ai-generator-banner-container" style="display: flex; align-items: center; gap: 10px;">
                                     <div class="ai-status-badge" id="web-ai-status" style="display: none;">
-                                        <i class="fa-solid fa-wand-magic-sparkles text-purple"></i>
-                                        <span>AI Active &bull; Auto-generated daily</span>
+                                        <i class="fa-solid fa-cloud text-blue"></i>
+                                        <span>Firebase Connected</span>
                                     </div>
-                                    <div class="ai-key-hint" id="web-ai-key-hint">
-                                        <p><i class="fa-solid fa-circle-info"></i> Connect Gemini in Settings to enable automated daily AI words.</p>
+                                    <button id="web-ai-generate-btn" style="display: none; background: #3b82f6; color: white; border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; margin-left: auto;">
+                                        <i class="fa-solid fa-arrow-rotate-right"></i> Sync
+                                    </button>
+                                    <div class="ai-key-hint" id="web-ai-key-hint" style="flex-grow: 1;">
+                                        <p><i class="fa-solid fa-circle-info"></i> Firebase Firestore is now connected to manage vocabulary.</p>
                                     </div>
                                 </div>
 
@@ -265,7 +263,6 @@
                                     <h3>Example Sentence</h3>
                                     <div class="example-box">
                                         <p class="sentence-foreign" id="card-example-foreign">"Meeting my old friend at the airport was pure serendipity."</p>
-                                        <p class="sentence-translation" id="card-example-translation">"Meeting my old friend at the airport was pure serendipity."</p>
                                     </div>
                                 </div>
 
@@ -313,12 +310,15 @@
                                     </div>
 
                                     <div class="settings-section">
-                                        <h4>GEMINI AI CONFIGURATION</h4>
-                                        <div class="settings-row-input">
-                                            <label for="web-api-key"><i class="fa-solid fa-key text-purple"></i> Gemini API Key</label>
-                                            <input type="password" id="web-api-key" placeholder="Enter API Key">
+                                        <h4>DATABASE CONFIGURATION</h4>
+                                        <div class="settings-row">
+                                            <div class="row-label">
+                                                <i class="fa-solid fa-database text-blue"></i>
+                                                <span>Firebase Firestore</span>
+                                            </div>
+                                            <span class="row-value text-blue" style="font-weight: bold;">Connected</span>
                                         </div>
-                                        <p class="settings-note">Get a free key from <a href="https://aistudio.google.com/" target="_blank" style="color: var(--primary);">Google AI Studio</a>. Stored locally in your browser.</p>
+                                        <p class="settings-note">Project ID: <code style="background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px;">web1-d1df7</code>. Data is fetched using Firestore REST API.</p>
                                     </div>
 
                                     <div class="settings-section">

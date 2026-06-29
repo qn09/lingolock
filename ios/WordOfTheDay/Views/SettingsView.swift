@@ -14,21 +14,7 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.navigationLink)
                 }
-                
-                Section(header: Text("Gemini AI API Configuration")) {
-                    SecureField("Gemini API Key", text: $settings.geminiApiKey)
-                        .textInputAutocapitalization(.none)
-                        .disableAutocorrection(true)
-                    
-                    Link("Get free API Key from Google AI Studio", destination: URL(string: "https://aistudio.google.com/")!)
-                        .font(.caption)
-                        .foregroundColor(.blue)
-                    
-                    Text("This key is stored locally in your App Group and is used to call the Gemini model directly from your device.")
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                }
-                
+                // Gemini configuration removed for Firebase
                 Section(header: Text("How to Add to Lock Screen")) {
                     VStack(alignment: .leading, spacing: 10) {
                         InstructionRow(step: "1", text: "Touch and hold the Lock Screen until the Customize button appears, then tap Customize.")

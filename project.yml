@@ -1,6 +1,11 @@
 name: WordOfTheDay
 options:
   bundleIdPrefix: com.language
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    from: 10.28.1
+
 targets:
   WordOfTheDay:
     type: application
@@ -16,6 +21,10 @@ targets:
         UILaunchScreen: {}
     dependencies:
       - target: WordOfTheDayWidget
+      - package: Firebase
+        product: FirebaseFirestore
+      - package: Firebase
+        product: FirebaseAnalytics
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.language.wordoftheday
       TARGETED_DEVICE_FAMILY: "1"
