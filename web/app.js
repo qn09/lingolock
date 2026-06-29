@@ -614,7 +614,7 @@ async function autoFetchAIWord(dateKey, language) {
     }
     
     const prompt = language === "English" 
-        ? `Generate an advanced, interesting, or academic English word for vocabulary learning. The 'translation' field should be a 1-3 word simplified synonym. The explanation, meaning, and example sentences should all be in English. Do not use translation languages like Vietnamese.${excludePrompt}`
+        ? `Generate a high-yield, academic English vocabulary word commonly found in the GRE exam (Graduate Record Examinations) for graduate-level verbal reasoning preparation. Focus on advanced, precise, or challenging words. The 'translation' field should be a 1-3 word simplified synonym. The explanation, meaning, and example sentences should all be in English. Do not use translation languages like Vietnamese.${excludePrompt}`
         : `Generate a useful Japanese vocabulary word (written in Kanji or Kana, e.g. 木漏れ日). The 'translation' field should be the English meaning. The pronunciation should be romaji. The meaning and exampleTranslation should be written in English. The exampleForeign must be in Japanese.${excludePrompt}`;
         
     const payload = {
