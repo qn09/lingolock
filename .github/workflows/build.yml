@@ -39,6 +39,9 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen generate
 
+      - name: Resolve SPM Dependencies
+        run: xcodebuild -resolvePackageDependencies -project WordOfTheDay.xcodeproj -scheme WordOfTheDay
+
       - name: Build and Archive (No Sign)
         run: |
           xcodebuild archive \
