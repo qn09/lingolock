@@ -1,23 +1,7 @@
 // --- VOCABULARY DATA (Matches Swift VocabularyData.words) ---
 const vocabulary = {
-    English: [
-        { foreignWord: "laconic", translation: "brief / concise", pronunciation: "luh-KON-ik", partOfSpeech: "adjective", meaning: "Using very few words; expressing much in few words.", exampleForeign: "His laconic reply suggested he lacked interest in the proposal.", exampleTranslation: "His brief reply suggested he lacked interest in the proposal.", bcp47: "en-US", flag: "🇬🇧" },
-        { foreignWord: "capricious", translation: "fickle / unpredictable", pronunciation: "kuh-PRISH-uhs", partOfSpeech: "adjective", meaning: "Given to sudden and unaccountable changes of mood or behavior.", exampleForeign: "The administration's capricious policies caused confusion among employees.", exampleTranslation: "The administration's unpredictable policies caused confusion among employees.", bcp47: "en-US", flag: "🇬🇧" },
-        { foreignWord: "cacophony", translation: "harsh sound", pronunciation: "kuh-KOF-uh-nee", partOfSpeech: "noun", meaning: "A harsh, discordant mixture of sounds.", exampleForeign: "A cacophony of car horns and sirens filled the city streets.", exampleTranslation: "A harsh mixture of car horns and sirens filled the city streets.", bcp47: "en-US", flag: "🇬🇧" },
-        { foreignWord: "loquacious", translation: "talkative", pronunciation: "loh-KWAY-shuhs", partOfSpeech: "adjective", meaning: "Tending to talk a great deal; talkative.", exampleForeign: "The loquacious host kept the guests entertained all evening.", exampleTranslation: "The talkative host kept the guests entertained all evening.", bcp47: "en-US", flag: "🇬🇧" },
-        { foreignWord: "anomaly", translation: "deviation / abnormality", pronunciation: "uh-NOM-uh-lee", partOfSpeech: "noun", meaning: "Something that deviates from what is standard, normal, or expected.", exampleForeign: "The scientist explained that the unusual result was a statistical anomaly.", exampleTranslation: "The scientist explained that the unusual result was a statistical abnormality.", bcp47: "en-US", flag: "🇬🇧" },
-        { foreignWord: "ephemeral", translation: "fleeting / transient", pronunciation: "ih-FEM-er-uhl", partOfSpeech: "adjective", meaning: "Lasting for a very short time; transient.", exampleForeign: "The beauty of the cherry blossoms is ephemeral.", exampleTranslation: "The beauty of the cherry blossoms is ephemeral.", bcp47: "en-US", flag: "🇬🇧" },
-        { foreignWord: "equivocal", translation: "ambiguous / unclear", pronunciation: "ih-KWIV-uh-kuhl", partOfSpeech: "adjective", meaning: "Open to more than one interpretation; ambiguous or undecided.", exampleForeign: "The politician gave an equivocal answer to avoid taking a clear stance.", exampleTranslation: "The politician gave an ambiguous answer to avoid taking a clear stance.", bcp47: "en-US", flag: "🇬🇧" }
-    ],
-    Japanese: [
-        { foreignWord: "Komorebi (木漏れ日)", translation: "sunlight through trees", pronunciation: "ko-mo-reh-bee", partOfSpeech: "noun", meaning: "The sunlight that filters through the leaves of trees.", exampleForeign: "森を歩くと、美しい木漏れ日が見られます。", exampleTranslation: "Walking through the forest, you can see beautiful sunlight filtering through trees.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Kintsugi (金継ぎ)", translation: "golden pottery repair", pronunciation: "keen-tsoo-gee", partOfSpeech: "noun", meaning: "The Japanese art of repairing broken pottery with lacquer dusted or mixed with powdered gold.", exampleForeign: "金継ぎは、壊れたものに新しい命を吹き込みます。", exampleTranslation: "Kintsugi breathes new life into broken objects.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Ikigai (生き甲斐)", translation: "a reason for being", pronunciation: "ee-kee-guy", partOfSpeech: "noun", meaning: "A concept referring to something that gives a person a sense of purpose or a reason for living.", exampleForeign: "私の生き甲斐は、人々の役に立つことです。", exampleTranslation: "My reason for being is to be useful to people.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Kaizen (改善)", translation: "continuous improvement", pronunciation: "kye-zen", partOfSpeech: "noun", meaning: "A Japanese philosophy of continuous improvement of working practices and personal efficiency.", exampleForeign: "毎日少しずつ業務を改善していきます。", exampleTranslation: "We will improve our business operations little by little every day.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Natsukashii (懐かしい)", translation: "nostalgic / dear", pronunciation: "nah-tsoo-kah-shee", partOfSpeech: "adjective", meaning: "Bringing back fond memories of the past; nostalgic.", exampleForeign: "この古いアルバムを見ると、子供の頃が懐かしいです。", exampleTranslation: "Looking at this old album makes me feel nostalgic for my childhood.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Shinrinyoku (森林浴)", translation: "forest bathing", pronunciation: "sheen-reen-yo-koo", partOfSpeech: "noun", meaning: "The practice of spending therapeutic time in a forest, absorbing its atmosphere.", exampleForeign: "週末は森に行って森林浴を楽しんでいます。", exampleTranslation: "I go to the forest on weekends to enjoy forest bathing.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Yūgen (幽玄)", translation: "profound grace / mystery", pronunciation: "yoo-gen", partOfSpeech: "noun", meaning: "A profound, mysterious sense of beauty in traditional Japanese aesthetics.", exampleForeign: "この日本庭園には幽玄の美があります。", exampleTranslation: "This Japanese garden has a profound, mysterious beauty.", bcp47: "ja-JP", flag: "🇯🇵" }
-    ]
+    English: [],
+    Japanese: []
 };
 
 // --- SWIFT CODE STRINGS FOR CODE MODAL ---
@@ -315,21 +299,35 @@ function getCurrentWord() {
     }
     
     // Get fallback offline word
-    const langWords = vocabulary[selectedLanguage] || vocabulary["English"];
-    const simDate = getSimulatedDate();
-    const startOfYear = new Date(simDate.getFullYear(), 0, 0);
-    const diff = simDate - startOfYear;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
-    const index = (dayOfYear - 1) % langWords.length;
-    const fallbackWord = langWords[index];
+    const langWords = vocabulary[selectedLanguage] || [];
     
     // Auto-trigger background AI fetch if API Key is configured and we aren't currently fetching
     if (geminiApiKey && geminiApiKey.trim() && !isFetchingWord) {
         autoFetchAIWord(dateKey, selectedLanguage);
     }
     
-    return fallbackWord;
+    if (langWords.length === 0) {
+        return {
+            foreignWord: "LingoLock GRE",
+            translation: "No Word Generated",
+            pronunciation: "lee-ngoh-lok",
+            partOfSpeech: "noun",
+            meaning: "Please configure your Gemini API Key in Settings to automatically generate and display your daily GRE words.",
+            exampleForeign: "Open Settings tab to configure.",
+            exampleTranslation: "Open Settings tab to configure.",
+            language: selectedLanguage,
+            flag: selectedLanguage === "English" ? "🇬🇧" : "🇯🇵",
+            bcp47: selectedLanguage === "English" ? "en-US" : "ja-JP"
+        };
+    }
+    
+    const simDate = getSimulatedDate();
+    const startOfYear = new Date(simDate.getFullYear(), 0, 0);
+    const diff = simDate - startOfYear;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    const index = (dayOfYear - 1) % langWords.length;
+    return langWords[index];
 }
 
 // --- STATE SYNCHRONIZATION ---
@@ -409,9 +407,11 @@ function syncData() {
 }
 
 function renderHistory() {
-    const langWords = vocabulary[selectedLanguage] || vocabulary["English"];
+    const langWords = vocabulary[selectedLanguage] || [];
     const historyContainer = document.getElementById("history-list-container");
     historyContainer.innerHTML = "";
+    
+    let renderedCount = 0;
     
     // Render past words (up to 7 days)
     for (let i = 0; i < 7; i++) {
@@ -426,7 +426,7 @@ function renderHistory() {
         if (dailyAiWords[dateKey]) {
             word = dailyAiWords[dateKey];
             isAi = true;
-        } else {
+        } else if (langWords.length > 0) {
             const startOfYear = new Date(simDate.getFullYear(), 0, 0);
             const diff = simDate - startOfYear;
             const oneDay = 1000 * 60 * 60 * 24;
@@ -436,6 +436,11 @@ function renderHistory() {
             word = langWords[index];
         }
         
+        if (!word) {
+            continue; // Skip rendering empty days
+        }
+        
+        renderedCount++;
         const dateLabel = i === 0 ? "Today" : i === 1 ? "Yesterday" : simDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
         
         const isFav = favorites.has(word.foreignWord);
@@ -454,6 +459,10 @@ function renderHistory() {
             </div>
         `;
         historyContainer.insertAdjacentHTML("beforeend", itemHtml);
+    }
+    
+    if (renderedCount === 0) {
+        historyContainer.innerHTML = `<p class="no-history-text" style="color: var(--text-secondary); text-align: center; padding: 2rem 1rem;">No history items available. Set up your Gemini API key in Settings to begin.</p>`;
     }
     
     // Bind click events on history items to show them in the card
