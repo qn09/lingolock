@@ -9,7 +9,8 @@ targets:
     sources:
       - path: ios/WordOfTheDay
       - path: ios/Shared
-    entitlements: ios/WordOfTheDay/WordOfTheDay.entitlements
+    entitlements:
+      path: ios/WordOfTheDay/WordOfTheDay.entitlements
     dependencies:
       - target: WordOfTheDayWidget
     settings:
@@ -23,7 +24,8 @@ targets:
     sources:
       - path: ios/WordOfTheDayWidget
       - path: ios/Shared
-    entitlements: ios/WordOfTheDayWidget/WordOfTheDayWidget.entitlements
+    entitlements:
+      path: ios/WordOfTheDayWidget/WordOfTheDayWidget.entitlements
     info:
       plist:
         NSExtension:
