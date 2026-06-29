@@ -55,8 +55,9 @@ struct Provider: TimelineProvider {
                 entries.append(entry)
             }
 
-            let expiryDate = calendar.date(byAdding: .day, value: 3, to: currentDate) ?? currentDate
-            let timeline = Timeline(entries: entries, policy: .after(expiryDate))
+            let tomorrow = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
+            let nextMidnight = calendar.startOfDay(for: tomorrow)
+            let timeline = Timeline(entries: entries, policy: .after(nextMidnight))
             completion(timeline)
         }
     }

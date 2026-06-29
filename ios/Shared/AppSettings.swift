@@ -13,6 +13,7 @@ public class AppSettings: ObservableObject {
     @Published public var selectedLanguage: String {
         didSet {
             sharedDefaults?.set(selectedLanguage, forKey: Keys.selectedLanguage)
+            sharedDefaults?.synchronize()
             WidgetRefresher.refresh()
         }
     }
@@ -21,12 +22,15 @@ public class AppSettings: ObservableObject {
         didSet {
             let array = Array(favoritedWordIds)
             sharedDefaults?.set(array, forKey: Keys.favoritedWords)
+            sharedDefaults?.synchronize()
         }
     }
     
     @Published public var geminiApiKey: String {
         didSet {
             sharedDefaults?.set(geminiApiKey, forKey: Keys.geminiApiKey)
+            sharedDefaults?.synchronize()
+            WidgetRefresher.refresh()
         }
     }
     
@@ -35,6 +39,8 @@ public class AppSettings: ObservableObject {
         didSet {
             if let encoded = try? JSONEncoder().encode(dailyAiWords) {
                 sharedDefaults?.set(encoded, forKey: Keys.dailyAiWords)
+                sharedDefaults?.synchronize()
+                WidgetRefresher.refresh()
             }
         }
     }
@@ -43,6 +49,7 @@ public class AppSettings: ObservableObject {
     @Published public var seenWordsList: [String] {
         didSet {
             sharedDefaults?.set(seenWordsList, forKey: Keys.seenWordsList)
+            sharedDefaults?.synchronize()
         }
     }
     
