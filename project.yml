@@ -9,11 +9,16 @@ targets:
     sources:
       - path: ios/WordOfTheDay
       - path: ios/Shared
+    info:
+      path: ios/WordOfTheDay/Info.plist
+      properties:
+        CFBundleDisplayName: LingoLock
+        UILaunchScreen: {}
     dependencies:
       - target: WordOfTheDayWidget
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.language.wordoftheday
-      TARGETED_DEVICE_FAMILY: "1" # iPhone only
+      TARGETED_DEVICE_FAMILY: "1"
       CODE_SIGN_ENTITLEMENTS: ios/WordOfTheDay/WordOfTheDay.entitlements
 
   WordOfTheDayWidget:
@@ -24,7 +29,8 @@ targets:
       - path: ios/WordOfTheDayWidget
       - path: ios/Shared
     info:
-      plist:
+      path: ios/WordOfTheDayWidget/Info.plist
+      properties:
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
