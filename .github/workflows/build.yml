@@ -26,6 +26,16 @@ jobs:
           brew update
           brew install xcodegen
 
+      - name: Generate Secrets Placeholder
+        run: |
+          cat > ios/Shared/Secrets.swift << 'EOF'
+          import Foundation
+          public struct Secrets {
+              public static let geminiApiKey = ""
+              public static let geminiModel = "gemini-2.5-flash"
+          }
+          EOF
+
       - name: Generate Xcode Project
         run: xcodegen generate
 

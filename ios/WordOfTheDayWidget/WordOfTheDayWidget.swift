@@ -306,8 +306,14 @@ struct WordOfTheDayWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            WordOfTheDayWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+            if #available(iOSApplicationExtension 17.0, *) {
+                WordOfTheDayWidgetEntryView(entry: entry)
+                    .containerBackground(.fill.tertiary, for: .widget)
+            } else {
+                WordOfTheDayWidgetEntryView(entry: entry)
+                    .padding()
+                    .background()
+            }
         }
         .configurationDisplayName("Language Word of the Day")
         .description("Learn a new language word directly from your lock screen or home screen.")
@@ -321,11 +327,12 @@ struct WordOfTheDayWidget: Widget {
     }
 }
 
-#Preview(as: .accessoryRectangular) {
-    WordOfTheDayWidget()
-} vs: {
-    let sampleWord = Word(foreignWord: "serendipity", translation: "happy accident", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
-                          meaning: "The occurrence and development of events by chance in a happy or beneficial way.",
-                          exampleForeign: "Meeting my old friend at the airport was pure serendipity.", exampleTranslation: "Meeting my old friend at the airport was pure serendipity.", language: "English")
-    SimpleEntry(date: Date(), word: sampleWord)
+struct WordOfTheDayWidget_Previews: PreviewProvider {
+    static var previews: some View {
+        let sampleWord = Word(foreignWord: "serendipity", translation: "happy accident", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
+                              meaning: "The occurrence and development of events by chance in a happy or beneficial way.",
+                              exampleForeign: "Meeting my old friend at the airport was pure serendipity.", exampleTranslation: "Meeting my old friend at the airport was pure serendipity.", language: "English")
+        WordOfTheDayWidgetEntryView(entry: SimpleEntry(date: Date(), word: sampleWord))
+            .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
+    }
 }
