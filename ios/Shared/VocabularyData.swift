@@ -1,5 +1,7 @@
 import Foundation
+#if !WIDGET_EXTENSION
 import FirebaseFirestore
+#endif
 
 public struct VocabularyData {
     public static let languages = ["English", "Japanese"]
@@ -31,6 +33,9 @@ public struct VocabularyData {
     }
     
     private static func fetchWordsFromFirebase(for language: String, date: Date, forceRandom: Bool = false) {
+#if WIDGET_EXTENSION
+        return
+#else
         guard !isFetching else { return }
         isFetching = true
         
@@ -70,6 +75,7 @@ public struct VocabularyData {
                 AppSettings.shared.saveWord(word, for: date, language: language)
             }
         }
+#endif
     }
     
     public static func getHistory(for language: String, limit: Int = 10, relativeTo date: Date = Date()) -> [Word] {

@@ -46,3 +46,4 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: com.language.wordoftheday.widget
       TARGETED_DEVICE_FAMILY: "1"
       CODE_SIGN_ENTITLEMENTS: ios/WordOfTheDayWidget/WordOfTheDayWidget.entitlements
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: WIDGET_EXTENSION
