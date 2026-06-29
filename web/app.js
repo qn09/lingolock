@@ -1,40 +1,22 @@
 // --- VOCABULARY DATA (Matches Swift VocabularyData.words) ---
 const vocabulary = {
-    Spanish: [
-        { foreignWord: "palabra", translation: "word", pronunciation: "pah-LAH-brah", partOfSpeech: "noun", meaning: "A single distinct meaningful element of speech or writing.", exampleForeign: "Esta palabra en español es muy hermosa.", exampleTranslation: "This word in Spanish is very beautiful.", bcp47: "es-ES", flag: "🇪🇸" },
-        { foreignWord: "crecer", translation: "to grow", pronunciation: "kreh-SEHR", partOfSpeech: "verb", meaning: "To undergo natural development by increasing in size and changing physically.", exampleForeign: "Las flores crecen rápidamente en primavera.", exampleTranslation: "Flowers grow quickly in spring.", bcp47: "es-ES", flag: "🇪🇸" },
-        { foreignWord: "amanecer", translation: "dawn", pronunciation: "ah-mah-neh-SEHR", partOfSpeech: "noun", meaning: "The first appearance of light in the sky before sunrise.", exampleForeign: "Me gusta ver el amanecer frente al mar.", exampleTranslation: "I like to watch the dawn in front of the sea.", bcp47: "es-ES", flag: "🇪🇸" },
-        { foreignWord: "desafío", translation: "challenge", pronunciation: "deh-sah-FEE-oh", partOfSpeech: "noun", meaning: "A task or situation that tests someone's abilities.", exampleForeign: "Aprender un nuevo idioma es un gran desafío.", exampleTranslation: "Learning a new language is a great challenge.", bcp47: "es-ES", flag: "🇪🇸" },
-        { foreignWord: "sonreír", translation: "to smile", pronunciation: "sohn-ray-EER", partOfSpeech: "verb", meaning: "Form one's features into a pleased or kind expression.", exampleForeign: "Ella siempre sonríe cuando está feliz.", exampleTranslation: "She always smiles when she is happy.", bcp47: "es-ES", flag: "🇪🇸" },
-        { foreignWord: "mariposa", translation: "butterfly", pronunciation: "mah-ree-POH-sah", partOfSpeech: "noun", meaning: "An insect with broad, often brightly colored wings.", exampleForeign: "La mariposa vuela sobre las flores del jardín.", exampleTranslation: "The butterfly flies over the flowers in the garden.", bcp47: "es-ES", flag: "🇪🇸" },
-        { foreignWord: "descubrir", translation: "to discover", pronunciation: "dehs-koo-BREER", partOfSpeech: "verb", meaning: "Find unexpectedly or during a search.", exampleForeign: "Queremos descubrir nuevos lugares este fin de semana.", exampleTranslation: "We want to discover new places this weekend.", bcp47: "es-ES", flag: "🇪🇸" }
-    ],
-    French: [
-        { foreignWord: "espoir", translation: "hope", pronunciation: "ess-pwahr", partOfSpeech: "noun", meaning: "A feeling of expectation and desire for a certain thing to happen.", exampleForeign: "Il y a toujours de l'espoir, même dans les moments difficiles.", exampleTranslation: "There is always hope, even in difficult times.", bcp47: "fr-FR", flag: "🇫🇷" },
-        { foreignWord: "découvrir", translation: "to discover", pronunciation: "day-koo-vreer", partOfSpeech: "verb", meaning: "To find unexpectedly or acquire knowledge of for the first time.", exampleForeign: "J'adore découvrir de nouvelles cultures.", exampleTranslation: "I love to discover new cultures.", bcp47: "fr-FR", flag: "🇫🇷" },
-        { foreignWord: "flâner", translation: "to wander / stroll", pronunciation: "flah-nay", partOfSpeech: "verb", meaning: "To lounge or saunter around idly.", exampleForeign: "Nous flânons souvent dans les rues de Paris le dimanche.", exampleTranslation: "We often stroll in the streets of Paris on Sundays.", bcp47: "fr-FR", flag: "🇫🇷" },
-        { foreignWord: "étoile", translation: "star", pronunciation: "ay-twahl", partOfSpeech: "noun", meaning: "A luminous point in the night sky which is a large, remote incandescent body.", exampleForeign: "Regarde le ciel, il y a beaucoup d'étoiles ce soir.", exampleTranslation: "Look at the sky, there are many stars tonight.", bcp47: "fr-FR", flag: "🇫🇷" },
-        { foreignWord: "bienveillance", translation: "benevolence / kindness", pronunciation: "byeh-vay-lahns", partOfSpeech: "noun", meaning: "The quality of well-meaning; kindness.", exampleForeign: "Sa bienveillance envers les autres est admirable.", exampleTranslation: "Her kindness towards others is admirable.", bcp47: "fr-FR", flag: "🇫🇷" },
-        { foreignWord: "éphémère", translation: "ephemeral", pronunciation: "ay-fay-mair", partOfSpeech: "adjective", meaning: "Lasting for a very short time.", exampleForeign: "La beauté des fleurs de cerisier est éphémère.", exampleTranslation: "The beauty of cherry blossoms is ephemeral.", bcp47: "fr-FR", flag: "🇫🇷" },
-        { foreignWord: "voyager", translation: "to travel", pronunciation: "vwah-yah-jay", partOfSpeech: "verb", meaning: "Go on a journey, typically of some length or abroad.", exampleForeign: "Voyager permet d'ouvrir son esprit.", exampleTranslation: "Traveling allows one to open their mind.", bcp47: "fr-FR", flag: "🇫🇷" }
+    English: [
+        { foreignWord: "serendipity", translation: "happy accident", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun", meaning: "The occurrence and development of events by chance in a happy or beneficial way.", exampleForeign: "Meeting my old friend at the airport was pure serendipity.", exampleTranslation: "Meeting my old friend at the airport was pure serendipity.", bcp47: "en-US", flag: "🇬🇧" },
+        { foreignWord: "resilience", translation: "quick recovery", pronunciation: "ri-ZIL-yuns", partOfSpeech: "noun", meaning: "The capacity to recover quickly from difficulties; toughness.", exampleForeign: "She showed great resilience in overcoming her illness.", exampleTranslation: "She showed great resilience in overcoming her illness.", bcp47: "en-US", flag: "🇬🇧" },
+        { foreignWord: "ephemeral", translation: "fleeting / transient", pronunciation: "ih-FEM-er-uhl", partOfSpeech: "adjective", meaning: "Lasting for a very short time; transient.", exampleForeign: "The beauty of the cherry blossoms is ephemeral.", exampleTranslation: "The beauty of the cherry blossoms is ephemeral.", bcp47: "en-US", flag: "🇬🇧" },
+        { foreignWord: "eloquent", translation: "articulate / persuasive", pronunciation: "EL-uh-kwent", partOfSpeech: "adjective", meaning: "Fluent or persuasive in speaking or writing.", exampleForeign: "His eloquent speech moved the audience to tears.", exampleTranslation: "His eloquent speech moved the audience to tears.", bcp47: "en-US", flag: "🇬🇧" },
+        { foreignWord: "solitude", translation: "peaceful isolation", pronunciation: "SOL-i-tood", partOfSpeech: "noun", meaning: "The state or situation of being alone, especially in a peaceful and pleasant way.", exampleForeign: "She savored the quiet solitude of the early morning.", exampleTranslation: "She savored the quiet solitude of the early morning.", bcp47: "en-US", flag: "🇬🇧" },
+        { foreignWord: "meticulous", translation: "extremely precise", pronunciation: "muh-TIK-yuh-luhs", partOfSpeech: "adjective", meaning: "Showing great attention to detail; very careful and precise.", exampleForeign: "He was meticulous about keeping his records clean.", exampleTranslation: "He was meticulous about keeping his records clean.", bcp47: "en-US", flag: "🇬🇧" },
+        { foreignWord: "ubiquitous", translation: "found everywhere", pronunciation: "yoo-BIK-wi-tuhs", partOfSpeech: "adjective", meaning: "Present, appearing, or found everywhere.", exampleForeign: "Smartphones have become ubiquitous in modern society.", exampleTranslation: "Smartphones have become ubiquitous in modern society.", bcp47: "en-US", flag: "🇬🇧" }
     ],
     Japanese: [
-        { foreignWord: "Komorebi (木漏れ日)", translation: "sunlight filtering through trees", pronunciation: "ko-mo-reh-bee", partOfSpeech: "noun", meaning: "The sunlight that filters through the leaves of trees.", exampleForeign: "森を歩くと、美しい木漏れ日が見られます。", exampleTranslation: "Walking through the forest, you can see beautiful sunlight filtering through trees.", bcp47: "ja-JP", flag: "🇯🇵" },
+        { foreignWord: "Komorebi (木漏れ日)", translation: "sunlight through trees", pronunciation: "ko-mo-reh-bee", partOfSpeech: "noun", meaning: "The sunlight that filters through the leaves of trees.", exampleForeign: "森を歩くと、美しい木漏れ日が見られます。", exampleTranslation: "Walking through the forest, you can see beautiful sunlight filtering through trees.", bcp47: "ja-JP", flag: "🇯🇵" },
         { foreignWord: "Kintsugi (金継ぎ)", translation: "golden pottery repair", pronunciation: "keen-tsoo-gee", partOfSpeech: "noun", meaning: "The Japanese art of repairing broken pottery with lacquer dusted or mixed with powdered gold.", exampleForeign: "金継ぎは、壊れたものに新しい命を吹き込みます。", exampleTranslation: "Kintsugi breathes new life into broken objects.", bcp47: "ja-JP", flag: "🇯🇵" },
         { foreignWord: "Ikigai (生き甲斐)", translation: "a reason for being", pronunciation: "ee-kee-guy", partOfSpeech: "noun", meaning: "A concept referring to something that gives a person a sense of purpose or a reason for living.", exampleForeign: "私の生き甲斐は、人々の役に立つことです。", exampleTranslation: "My reason for being is to be useful to people.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Kaizen (改善)", translation: "continuous improvement", pronunciation: "kye-zen", partOfSpeech: "noun", meaning: "A Japanese business philosophy of continuous improvement of working practices and personal efficiency.", exampleForeign: "毎日少しずつ業務を改善していきます。", exampleTranslation: "We will improve our business operations little by little every day.", bcp47: "ja-JP", flag: "🇯🇵" },
+        { foreignWord: "Kaizen (改善)", translation: "continuous improvement", pronunciation: "kye-zen", partOfSpeech: "noun", meaning: "A Japanese philosophy of continuous improvement of working practices and personal efficiency.", exampleForeign: "毎日少しずつ業務を改善していきます。", exampleTranslation: "We will improve our business operations little by little every day.", bcp47: "ja-JP", flag: "🇯🇵" },
         { foreignWord: "Natsukashii (懐かしい)", translation: "nostalgic / dear", pronunciation: "nah-tsoo-kah-shee", partOfSpeech: "adjective", meaning: "Bringing back fond memories of the past; nostalgic.", exampleForeign: "この古いアルバムを見ると、子供の頃が懐かしいです。", exampleTranslation: "Looking at this old album makes me feel nostalgic for my childhood.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Wabi-Sabi (侘寂)", translation: "imperfect beauty", pronunciation: "wah-bee-sah-bee", partOfSpeech: "noun", meaning: "A world view centered on the acceptance of transience and imperfection.", exampleForeign: "日本の古い茶碗には、侘寂の心があります。", exampleTranslation: "There is a spirit of wabi-sabi in ancient Japanese teacups.", bcp47: "ja-JP", flag: "🇯🇵" },
-        { foreignWord: "Yūgen (幽玄)", translation: "profound grace / mystery", pronunciation: "yoo-gen", partOfSpeech: "noun", meaning: "An important concept in traditional Japanese aesthetics, meaning a profound, mysterious sense of beauty.", exampleForeign: "この日本庭園には幽玄の美があります。", exampleTranslation: "This Japanese garden has a profound, mysterious beauty.", bcp47: "ja-JP", flag: "🇯🇵" }
-    ],
-    German: [
-        { foreignWord: "Fernweh", translation: "longing to travel", pronunciation: "FEHRN-vay", partOfSpeech: "noun", meaning: "A longing for distant places; the opposite of homesickness (Heimweh).", exampleForeign: "Im Winter packt mich immer das Fernweh.", exampleTranslation: "In winter I am always seized by the longing to travel.", bcp47: "de-DE", flag: "🇩🇪" },
-        { foreignWord: "Sehnsucht", translation: "nostalgic yearning", pronunciation: "ZAYN-zookht", partOfSpeech: "noun", meaning: "A deep longing or yearning for something distant or intangible.", exampleForeign: "Er hat eine große Sehnsucht nach der Heimat.", exampleTranslation: "He has a great yearning for his homeland.", bcp47: "de-DE", flag: "🇩🇪" },
-        { foreignWord: "Zeitgeist", translation: "spirit of the time", pronunciation: "TSYTE-gyste", partOfSpeech: "noun", meaning: "The defining spirit or mood of a particular period of history as shown by the ideas and beliefs of the time.", exampleForeign: "Dieser Film fängt den Zeitgeist der Neunziger perfekt ein.", exampleTranslation: "This movie perfectly captures the spirit of the nineties.", bcp47: "de-DE", flag: "🇩🇪" },
-        { foreignWord: "Schadenfreude", translation: "harm-joy", pronunciation: "SHAH-den-froy-deh", partOfSpeech: "noun", meaning: "Pleasure derived by someone from another person's misfortune.", exampleForeign: "Es liegt eine gewisse Schadenfreude in seinem Lächeln.", exampleTranslation: "There is a certain Schadenfreude in his smile.", bcp47: "de-DE", flag: "🇩🇪" },
-        { foreignWord: "Gemütlichkeit", translation: "coziness / comfort", pronunciation: "geh-MOOT-likh-kyte", partOfSpeech: "noun", meaning: "A state of warmth, friendliness, and good cheer, inducing a cozy atmosphere.", exampleForeign: "Das kleine Café strahlte eine wunderbare Gemütlichkeit aus.", exampleTranslation: "Das kleine Café strahlte eine wunderbare Gemütlichkeit aus.", bcp47: "de-DE", flag: "🇩🇪" },
-        { foreignWord: "Kummerspeck", translation: "grief-bacon", pronunciation: "KOOM-mer-shpek", partOfSpeech: "noun", meaning: "The excess weight gained from emotional overeating during periods of stress or grief.", exampleForeign: "Nach der Trennung hatte sie ein bisschen Kummerspeck.", exampleTranslation: "After the breakup, she had a bit of grief-bacon.", bcp47: "de-DE", flag: "🇩🇪" },
-        { foreignWord: "Weltschmerz", translation: "world-weariness", pronunciation: "VELT-shmerts", partOfSpeech: "noun", meaning: "A feeling of melancholy and world-weariness, caused by a comparison of the actual state of the world with an ideal state.", exampleForeign: "Manchmal überkommt mich ein tiefer Weltschmerz.", exampleTranslation: "Sometimes a deep world-weariness overcomes me.", bcp47: "de-DE", flag: "🇩🇪" }
+        { foreignWord: "Shinrinyoku (森林浴)", translation: "forest bathing", pronunciation: "sheen-reen-yo-koo", partOfSpeech: "noun", meaning: "The practice of spending therapeutic time in a forest, absorbing its atmosphere.", exampleForeign: "週末は森に行って森林浴を楽しんでいます。", exampleTranslation: "I go to the forest on weekends to enjoy forest bathing.", bcp47: "ja-JP", flag: "🇯🇵" },
+        { foreignWord: "Yūgen (幽玄)", translation: "profound grace / mystery", pronunciation: "yoo-gen", partOfSpeech: "noun", meaning: "A profound, mysterious sense of beauty in traditional Japanese aesthetics.", exampleForeign: "この日本庭園には幽玄の美があります。", exampleTranslation: "This Japanese garden has a profound, mysterious beauty.", bcp47: "ja-JP", flag: "🇯🇵" }
     ]
 };
 
@@ -76,22 +58,20 @@ public struct Word: Codable, Identifiable, Hashable {
     VocabularyData: `import Foundation
 
 public struct VocabularyData {
-    public static let languages = ["Spanish", "French", "Japanese", "German"]
+    public static let languages = ["English", "Japanese"]
     
     public static let words: [String: [Word]] = [
-        "Spanish": [
-            Word(foreignWord: "palabra", translation: "word", pronunciation: "pah-LAH-brah", partOfSpeech: "noun", ...),
-            Word(foreignWord: "crecer", translation: "to grow", pronunciation: "kreh-SEHR", partOfSpeech: "verb", ...),
+        "English": [
+            Word(foreignWord: "serendipity", translation: "happy accident", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun", ...),
+            Word(foreignWord: "resilience", translation: "quick recovery", pronunciation: "ri-ZIL-yuns", partOfSpeech: "noun", ...),
             // See Shared/VocabularyData.swift for complete dictionary entries
         ],
-        "French": [ ... ],
-        "Japanese": [ ... ],
-        "German": [ ... ]
+        "Japanese": [ ... ]
     ]
     
     public static func getWordOfTheDay(for language: String, date: Date = Date()) -> Word {
-        let selectedLanguage = languages.contains(language) ? language : "Spanish"
-        let languageWords = words[selectedLanguage] ?? words["Spanish"]!
+        let selectedLanguage = languages.contains(language) ? language : "English"
+        let languageWords = words[selectedLanguage] ?? words["English"]!
         
         let calendar = Calendar.current
         let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
@@ -101,8 +81,8 @@ public struct VocabularyData {
     }
     
     public static func getHistory(for language: String, limit: Int = 10, relativeTo date: Date = Date()) -> [Word] {
-        let selectedLanguage = languages.contains(language) ? language : "Spanish"
-        let languageWords = words[selectedLanguage] ?? words["Spanish"]!
+        let selectedLanguage = languages.contains(language) ? language : "English"
+        let languageWords = words[selectedLanguage] ?? words["English"]!
         
         var history: [Word] = []
         let calendar = Calendar.current
@@ -139,7 +119,7 @@ public class AppSettings: ObservableObject {
     
     private init() {
         self.sharedDefaults = UserDefaults(suiteName: AppSettings.appGroupId)
-        self.selectedLanguage = sharedDefaults?.string(forKey: Keys.selectedLanguage) ?? "Spanish"
+        self.selectedLanguage = sharedDefaults?.string(forKey: Keys.selectedLanguage) ?? "English"
         self.favoritedWordIds = Set(sharedDefaults?.stringArray(forKey: Keys.favoritedWords) ?? [])
     }
     
@@ -217,12 +197,33 @@ struct WordOfTheDayWidgetEntryView : View {
 };
 
 // --- SIMULATOR STATE ---
-let selectedLanguage = "Spanish";
+let selectedLanguage = "English";
 let dateOffset = 0; // Days offset from today
 let favorites = new Set();
 let isPhoneLocked = true;
 let activeTab = "learn";
 let widgetStyle = "rectangular";
+
+let geminiApiKey = localStorage.getItem("gemini_api_key") || "";
+let geminiModel = localStorage.getItem("gemini_model") || "gemini-2.5-flash";
+
+// Daily AI generated words cache, dictionary of date string to Word: [Language_YYYY-MM-DD : Word]
+let dailyAiWords = {};
+try {
+    dailyAiWords = JSON.parse(localStorage.getItem("daily_ai_words")) || {};
+} catch (e) {
+    console.error("Failed to parse daily AI words cache", e);
+}
+
+// Global list of seen words to prevent duplicates
+let seenWords = [];
+try {
+    seenWords = JSON.parse(localStorage.getItem("seen_words")) || [];
+} catch (e) {
+    console.error("Failed to parse seen words list", e);
+}
+
+let isFetchingWord = false;
 
 // --- CORE DOM ELEMENTS ---
 const languageSelect = document.getElementById("language-select");
@@ -270,6 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     bindEvents();
     syncData();
+    loadEnvConfigs(); // Load API key and model config from .env if present
 });
 
 // --- CLOCK & DATE HANDLING ---
@@ -297,18 +299,37 @@ function getSimulatedDate() {
 }
 
 // --- SIMULATED DETERMINISTIC DATA ROTATION ---
+function getSimulatedDateKey(date = getSimulatedDate()) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${selectedLanguage}_${y}-${m}-${d}`;
+}
+
 function getCurrentWord() {
-    const langWords = vocabulary[selectedLanguage] || vocabulary["Spanish"];
-    const simDate = getSimulatedDate();
+    const dateKey = getSimulatedDateKey();
     
-    // Hashing algorithm matches Swift: day of year % words count
+    // Check if we already have an AI word for this date and language
+    if (dailyAiWords[dateKey]) {
+        return dailyAiWords[dateKey];
+    }
+    
+    // Get fallback offline word
+    const langWords = vocabulary[selectedLanguage] || vocabulary["English"];
+    const simDate = getSimulatedDate();
     const startOfYear = new Date(simDate.getFullYear(), 0, 0);
     const diff = simDate - startOfYear;
     const oneDay = 1000 * 60 * 60 * 24;
     const dayOfYear = Math.floor(diff / oneDay);
-    
     const index = (dayOfYear - 1) % langWords.length;
-    return langWords[index];
+    const fallbackWord = langWords[index];
+    
+    // Auto-trigger background AI fetch if API Key is configured and we aren't currently fetching
+    if (geminiApiKey && geminiApiKey.trim() && !isFetchingWord) {
+        autoFetchAIWord(dateKey, selectedLanguage);
+    }
+    
+    return fallbackWord;
 }
 
 // --- STATE SYNCHRONIZATION ---
@@ -362,13 +383,33 @@ function syncData() {
     // Settings view lang label update
     document.getElementById("settings-current-lang").textContent = selectedLanguage;
     
+    // Update AI Banner and Key hints
+    const webAiStatus = document.getElementById("web-ai-status");
+    const webAiKeyHint = document.getElementById("web-ai-key-hint");
+    
+    if (geminiApiKey && geminiApiKey.trim()) {
+        webAiStatus.style.display = "flex";
+        webAiKeyHint.style.display = "none";
+        
+        // If current word is an AI-generated word, change the badge to show it
+        const dateKey = getSimulatedDateKey();
+        if (dailyAiWords[dateKey]) {
+            webAiStatus.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles text-purple"></i> <span>AI Active &bull; Auto-generated daily</span>';
+        } else {
+            webAiStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-purple"></i> <span>AI Loading &bull; Fetching from Gemini...</span>';
+        }
+    } else {
+        webAiStatus.style.display = "none";
+        webAiKeyHint.style.display = "block";
+    }
+    
     // Update History Tab
     renderHistory();
     updateClock();
 }
 
 function renderHistory() {
-    const langWords = vocabulary[selectedLanguage] || vocabulary["Spanish"];
+    const langWords = vocabulary[selectedLanguage] || vocabulary["English"];
     const historyContainer = document.getElementById("history-list-container");
     historyContainer.innerHTML = "";
     
@@ -378,13 +419,22 @@ function renderHistory() {
         const simDate = getSimulatedDate();
         simDate.setDate(simDate.getDate() - i);
         
-        const startOfYear = new Date(simDate.getFullYear(), 0, 0);
-        const diff = simDate - startOfYear;
-        const oneDay = 1000 * 60 * 60 * 24;
-        const dayOfYear = Math.floor(diff / oneDay);
+        const dateKey = getSimulatedDateKey(simDate);
+        let word;
+        let isAi = false;
         
-        const index = (dayOfYear - 1) % langWords.length;
-        const word = langWords[index];
+        if (dailyAiWords[dateKey]) {
+            word = dailyAiWords[dateKey];
+            isAi = true;
+        } else {
+            const startOfYear = new Date(simDate.getFullYear(), 0, 0);
+            const diff = simDate - startOfYear;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            const index = (dayOfYear - 1) % langWords.length;
+            word = langWords[index];
+        }
         
         const dateLabel = i === 0 ? "Today" : i === 1 ? "Yesterday" : simDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
         
@@ -395,7 +445,7 @@ function renderHistory() {
             <div class="history-item" data-word="${word.foreignWord}">
                 <div class="history-item-left">
                     <h4>${word.foreignWord}</h4>
-                    <p>${word.translation} &bull; ${dateLabel}</p>
+                    <p>${word.translation} &bull; ${dateLabel}${isAi ? " &bull; AI" : ""}</p>
                 </div>
                 <div class="history-item-right">
                     <span class="part-badge">${word.partOfSpeech}</span>
@@ -535,6 +585,140 @@ function bindEvents() {
             renderCodeContent(file);
         });
     });
+    
+    // Gemini API settings row sync
+    const webApiKeyField = document.getElementById("web-api-key");
+    if (webApiKeyField) {
+        webApiKeyField.value = geminiApiKey;
+        webApiKeyField.addEventListener("input", (e) => {
+            geminiApiKey = e.target.value;
+            localStorage.setItem("gemini_api_key", geminiApiKey);
+            syncData();
+        });
+    }
+    
+}
+
+async function autoFetchAIWord(dateKey, language) {
+    if (!geminiApiKey.trim() || isFetchingWord) return;
+    
+    isFetchingWord = true;
+    syncData(); // Show loader spinner in syncData
+    
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
+    
+    // Add seen words array to prompt dynamically to guarantee no duplicate generation
+    let excludePrompt = "";
+    if (seenWords.length > 0) {
+        excludePrompt = ` IMPORTANT: Do not choose any of the following previously generated words: [${seenWords.join(", ")}]. You must select a completely new and unique word.`;
+    }
+    
+    const prompt = language === "English" 
+        ? `Generate an advanced, interesting, or academic English word for vocabulary learning. The 'translation' field should be a 1-3 word simplified synonym. The explanation, meaning, and example sentences should all be in English. Do not use translation languages like Vietnamese.${excludePrompt}`
+        : `Generate a useful Japanese vocabulary word (written in Kanji or Kana, e.g. 木漏れ日). The 'translation' field should be the English meaning. The pronunciation should be romaji. The meaning and exampleTranslation should be written in English. The exampleForeign must be in Japanese.${excludePrompt}`;
+        
+    const payload = {
+        contents: [
+            { parts: [{ text: prompt }] }
+        ],
+        generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: {
+                type: "OBJECT",
+                properties: {
+                    foreignWord: { type: "STRING" },
+                    translation: { type: "STRING" },
+                    pronunciation: { type: "STRING" },
+                    partOfSpeech: { type: "STRING" },
+                    meaning: { type: "STRING" },
+                    exampleForeign: { type: "STRING" },
+                    exampleTranslation: { type: "STRING" },
+                    language: { type: "STRING" }
+                },
+                required: ["foreignWord", "translation", "pronunciation", "partOfSpeech", "meaning", "exampleForeign", "exampleTranslation", "language"]
+            }
+        }
+    };
+    
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.error?.message || "Received invalid response from Gemini servers.");
+        }
+        
+        const data = await response.json();
+        const rawText = data.candidates[0].content.parts[0].text;
+        const word = JSON.parse(rawText.trim());
+        
+        // Populate standard simulated items
+        word.id = Math.random().toString(36).substring(7);
+        word.language = language;
+        word.flag = language === "English" ? "🇬🇧" : "🇯🇵";
+        word.bcp47 = language === "English" ? "en-GB" : "ja-JP";
+        
+        // Save to cache
+        dailyAiWords[dateKey] = word;
+        localStorage.setItem("daily_ai_words", JSON.stringify(dailyAiWords));
+        
+        // Record in duplicate prevention list
+        const lowerWord = word.foreignWord.toLowerCase().trim();
+        if (!seenWords.includes(lowerWord)) {
+            seenWords.push(lowerWord);
+            localStorage.setItem("seen_words", JSON.stringify(seenWords));
+        }
+        
+        // Reset card flip
+        mainVocabCard.classList.remove("flipped");
+        
+    } catch (e) {
+        console.error("Auto AI Generation Error:", e.message);
+    } finally {
+        isFetchingWord = false;
+        syncData();
+    }
+}
+
+async function loadEnvConfigs() {
+    try {
+        const response = await fetch('/.env');
+        if (response.ok) {
+            const text = await response.text();
+            
+            // Extract GEMINI_API_KEY
+            const keyMatch = text.match(/GEMINI_API_KEY\s*=\s*["']?([^"'\r\n#]+)["']?/);
+            if (keyMatch && keyMatch[1]) {
+                const loadedKey = keyMatch[1].trim();
+                if (loadedKey && loadedKey !== "YOUR_API_KEY_HERE") {
+                    geminiApiKey = loadedKey;
+                    localStorage.setItem("gemini_api_key", geminiApiKey);
+                    
+                    const webApiKeyField = document.getElementById("web-api-key");
+                    if (webApiKeyField) {
+                        webApiKeyField.value = geminiApiKey;
+                    }
+                }
+            }
+            
+            // Extract GEMINI_MODEL
+            const modelMatch = text.match(/GEMINI_MODEL\s*=\s*["']?([^"'\r\n#]+)["']?/);
+            if (modelMatch && modelMatch[1]) {
+                geminiModel = modelMatch[1].trim();
+                localStorage.setItem("gemini_model", geminiModel);
+            }
+            
+            syncData();
+        }
+    } catch (e) {
+        console.warn("No local .env file found or accessible. Using manual settings.", e);
+    }
 }
 
 function updateDateLabel() {

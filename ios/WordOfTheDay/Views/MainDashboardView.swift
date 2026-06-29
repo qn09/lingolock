@@ -46,6 +46,34 @@ struct MainDashboardView: View {
                 .padding(.horizontal)
                 .padding(.top, 16)
                 
+                // AI status banner
+                if settings.geminiApiKey.isEmpty {
+                    HStack {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(.secondary)
+                            .font(.caption)
+                        Text("Connect Gemini in Settings to enable automated daily AI words.")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, -8)
+                } else {
+                    HStack {
+                        Image(systemName: "sparkles")
+                            .foregroundColor(.purple)
+                            .font(.caption)
+                        Text("AI Active • Auto-generated daily")
+                            .font(.caption2)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, -8)
+                }
+                
                 // Word Card Panel
                 VStack(spacing: 20) {
                     HStack {
@@ -199,14 +227,10 @@ struct MainDashboardView: View {
         
         // Map language name to BCP 47 code
         switch settings.selectedLanguage {
-        case "Spanish":
-            utterance.voice = AVSpeechSynthesisVoice(language: "es-ES")
-        case "French":
-            utterance.voice = AVSpeechSynthesisVoice(language: "fr-FR")
+        case "English":
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         case "Japanese":
             utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
-        case "German":
-            utterance.voice = AVSpeechSynthesisVoice(language: "de-DE")
         default:
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         }

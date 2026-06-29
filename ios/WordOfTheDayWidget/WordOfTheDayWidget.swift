@@ -5,9 +5,9 @@ struct Provider: TimelineProvider {
     typealias Entry = SimpleEntry
     
     func placeholder(in context: Context) -> SimpleEntry {
-        let sampleWord = Word(foreignWord: "palabra", translation: "word", pronunciation: "pah-LAH-brah", partOfSpeech: "noun",
-                              meaning: "A single distinct element of speech.",
-                              exampleForeign: "Esta palabra es muy hermosa.", exampleTranslation: "This word is very beautiful.", language: "Spanish")
+        let sampleWord = Word(foreignWord: "serendipity", translation: "happy accident", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
+                              meaning: "The occurrence and development of events by chance in a happy or beneficial way.",
+                              exampleForeign: "Meeting my old friend at the airport was pure serendipity.", exampleTranslation: "Meeting my old friend at the airport was pure serendipity.", language: "English")
         return SimpleEntry(date: Date(), word: sampleWord)
     }
 
@@ -19,38 +19,69 @@ struct Provider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-        let language = getSelectedLanguage()
-        
-        let currentDate = Date()
-        let calendar = Calendar.current
-        
-        // Generate entries for today, tomorrow, and the day after tomorrow
-        // This ensures the lock screen widget continues rotating to new words daily
-        // even if the user does not open the main app for several days.
-        for dayOffset in 0..<3 {
-            guard let entryDate = calendar.date(byAdding: .day, value: dayOffset, to: currentDate) else { continue }
+        Task {
+            var entries: [SimpleEntry] = []
+            let language = getSelectedLanguage()
+            let apiKey = getApiKey()
             
-            // Set the update time to exactly midnight for each day
-            let midnightDate = calendar.startOfDay(for: entryDate)
-            let wordForDay = VocabularyData.getWordOfTheDay(for: language, date: midnightDate)
+            let currentDate = Date()
+            let calendar = Calendar.current
             
-            // For today, make the entry trigger immediately, otherwise at midnight
-            let triggerDate = dayOffset == 0 ? currentDate : midnightDate
-            let entry = SimpleEntry(date: triggerDate, word: wordForDay)
-            entries.append(entry)
-        }
+            for dayOffset in 0..<3 {
+                guard let entryDate = calendar.date(byAdding: .day, value: dayOffset, to: currentDate) else { continue }
+                let midnightDate = calendar.startOfDay(for: entryDate)
+                
+                let wordForDay: Word
+                if !apiKey.isEmpty {
+                    if let savedWord = AppSettings.shared.getSavedWord(for: midnightDate, language: language) {
+                        wordForDay = savedWord
+                    } else {
+                        do {
+                            let excludeList = getSeenWordsList()
+                            let fetched = try await GeminiService.shared.fetchVocabularyWord(for: language, apiKey: apiKey, excludeWords: excludeList)
+                            AppSettings.shared.saveWord(fetched, for: midnightDate, language: language)
+                            wordForDay = fetched
+                        } catch {
+                            // Fallback to offline if API fails
+                            wordForDay = getOfflineWord(for: language, date: midnightDate)
+                        }
+                    }
+                } else {
+                    wordForDay = getOfflineWord(for: language, date: midnightDate)
+                }
+                
+                let triggerDate = dayOffset == 0 ? currentDate : midnightDate
+                let entry = SimpleEntry(date: triggerDate, word: wordForDay)
+                entries.append(entry)
+            }
 
-        // Reload timeline when the scheduled entries expire (e.g. after day 3)
-        let expiryDate = calendar.date(byAdding: .day, value: 3, to: currentDate) ?? currentDate
-        let timeline = Timeline(entries: entries, policy: .after(expiryDate))
-        completion(timeline)
+            let expiryDate = calendar.date(byAdding: .day, value: 3, to: currentDate) ?? currentDate
+            let timeline = Timeline(entries: entries, policy: .after(expiryDate))
+            completion(timeline)
+        }
     }
     
     private func getSelectedLanguage() -> String {
         let appGroupId = "group.com.language.wordoftheday"
         let defaults = UserDefaults(suiteName: appGroupId)
-        return defaults?.string(forKey: "selected_language") ?? "Spanish"
+        return defaults?.string(forKey: "selected_language") ?? "English"
+    }
+    
+    private func getApiKey() -> String {
+        let appGroupId = "group.com.language.wordoftheday"
+        let defaults = UserDefaults(suiteName: appGroupId)
+        let savedKey = defaults?.string(forKey: "gemini_api_key") ?? ""
+        return savedKey.isEmpty ? Secrets.geminiApiKey : savedKey
+    }
+    
+    private func getSeenWordsList() -> [String] {
+        let appGroupId = "group.com.language.wordoftheday"
+        let defaults = UserDefaults(suiteName: appGroupId)
+        return defaults?.stringArray(forKey: "seen_words_list") ?? []
+    }
+    
+    private func getOfflineWord(for language: String, date: Date) -> Word {
+        return VocabularyData.getWordOfTheDay(for: language, date: date)
     }
 }
 
@@ -261,10 +292,8 @@ struct MediumWidgetView: View {
 
 func languageFlag(_ language: String) -> String {
     switch language {
-    case "Spanish": return "🇪🇸"
-    case "French": return "🇫🇷"
+    case "English": return "🇬🇧"
     case "Japanese": return "🇯🇵"
-    case "German": return "🇩🇪"
     default: return "🌐"
     }
 }
@@ -295,8 +324,8 @@ struct WordOfTheDayWidget: Widget {
 #Preview(as: .accessoryRectangular) {
     WordOfTheDayWidget()
 } vs: {
-    let sampleWord = Word(foreignWord: "palabra", translation: "word", pronunciation: "pah-LAH-brah", partOfSpeech: "noun",
-                          meaning: "A single distinct element of speech.",
-                          exampleForeign: "Esta palabra es muy hermosa.", exampleTranslation: "This word is very beautiful.", language: "Spanish")
+    let sampleWord = Word(foreignWord: "serendipity", translation: "happy accident", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
+                          meaning: "The occurrence and development of events by chance in a happy or beneficial way.",
+                          exampleForeign: "Meeting my old friend at the airport was pure serendipity.", exampleTranslation: "Meeting my old friend at the airport was pure serendipity.", language: "English")
     SimpleEntry(date: Date(), word: sampleWord)
 }

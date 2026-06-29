@@ -34,10 +34,8 @@
                     <label for="language-select">Target Language</label>
                     <div class="select-wrapper">
                         <select id="language-select">
-                            <option value="Spanish" selected>🇪🇸 Spanish</option>
-                            <option value="French">🇫🇷 French</option>
+                            <option value="English" selected>🇬🇧 English</option>
                             <option value="Japanese">🇯🇵 Japanese</option>
-                            <option value="German">🇩🇪 German</option>
                         </select>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
@@ -190,7 +188,7 @@
                             <div class="app-tab-panel" id="panel-learn">
                                 <div class="dashboard-header">
                                     <div>
-                                        <span class="sub-label" id="dashboard-lang-label">SPANISH</span>
+                                        <span class="sub-label" id="dashboard-lang-label">ENGLISH</span>
                                         <h2>Daily Word</h2>
                                     </div>
                                     <div class="streak-badge">
@@ -251,12 +249,23 @@
                                     </div>
                                 </div>
 
+                                <!-- AI Generator Banner -->
+                                <div class="ai-generator-banner-container">
+                                    <div class="ai-status-badge" id="web-ai-status" style="display: none;">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-purple"></i>
+                                        <span>AI Active &bull; Auto-generated daily</span>
+                                    </div>
+                                    <div class="ai-key-hint" id="web-ai-key-hint">
+                                        <p><i class="fa-solid fa-circle-info"></i> Connect Gemini in Settings to enable automated daily AI words.</p>
+                                    </div>
+                                </div>
+
                                 <!-- Example Sentence Panel -->
                                 <div class="example-panel">
                                     <h3>Example Sentence</h3>
                                     <div class="example-box">
-                                        <p class="sentence-foreign" id="card-example-foreign">"Esta palabra en español es muy hermosa."</p>
-                                        <p class="sentence-translation" id="card-example-translation">"This word in Spanish is very beautiful."</p>
+                                        <p class="sentence-foreign" id="card-example-foreign">"Meeting my old friend at the airport was pure serendipity."</p>
+                                        <p class="sentence-translation" id="card-example-translation">"Meeting my old friend at the airport was pure serendipity."</p>
                                     </div>
                                 </div>
 
@@ -299,8 +308,17 @@
                                                 <i class="fa-solid fa-language text-blue"></i>
                                                 <span>Target Language</span>
                                             </div>
-                                            <span class="row-value" id="settings-current-lang">Spanish</span>
+                                            <span class="row-value" id="settings-current-lang">English</span>
                                         </div>
+                                    </div>
+
+                                    <div class="settings-section">
+                                        <h4>GEMINI AI CONFIGURATION</h4>
+                                        <div class="settings-row-input">
+                                            <label for="web-api-key"><i class="fa-solid fa-key text-purple"></i> Gemini API Key</label>
+                                            <input type="password" id="web-api-key" placeholder="Enter API Key">
+                                        </div>
+                                        <p class="settings-note">Get a free key from <a href="https://aistudio.google.com/" target="_blank" style="color: var(--primary);">Google AI Studio</a>. Stored locally in your browser.</p>
                                     </div>
 
                                     <div class="settings-section">

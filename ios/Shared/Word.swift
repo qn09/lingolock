@@ -9,7 +9,7 @@ public struct Word: Codable, Identifiable, Hashable {
     public let meaning: String // Detailed explanation
     public let exampleForeign: String // Example sentence in target language
     public let exampleTranslation: String // Example sentence translated
-    public let language: String // e.g., "Spanish", "French", "Japanese", "German"
+    public let language: String // e.g., "English", "Japanese"
     
     public init(id: UUID = UUID(),
                 foreignWord: String,
