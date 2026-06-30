@@ -171,8 +171,8 @@ struct SmallWidgetView: View {
                     .font(.caption2)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
-                    .background(Color.blue.opacity(0.1))
-                    .foregroundColor(.blue)
+                    .background(Color.secondary.opacity(0.1))
+                    .foregroundColor(.secondary)
                     .cornerRadius(4)
             }
             
@@ -203,7 +203,7 @@ struct SmallWidgetView: View {
             
             Text("Tap to reveal meaning")
                 .font(.system(size: 10, weight: .semibold))
-                .foregroundColor(.blue)
+                .foregroundColor(.secondary)
                 .tracking(0.5)
         }
         .padding()
@@ -220,7 +220,7 @@ struct MediumWidgetView: View {
                 HStack(spacing: 6) {
                     Text(languageFlag(word.language))
                         .font(.title3)
-                    Text("Word of the Day")
+                    Text("LingoLock")
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
@@ -245,13 +245,13 @@ struct MediumWidgetView: View {
                 if !word.translation.isEmpty {
                     Text(word.translation)
                         .font(.headline)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.secondary)
                         .lineLimit(2)
                 } else {
                     Text("Tap to reveal meaning")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.secondary)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -304,7 +304,7 @@ struct WordOfTheDayWidget: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("Language Word of the Day")
+        .configurationDisplayName("LingoLock")
         .description("Learn a new language word directly from your lock screen or home screen.")
         .supportedFamilies([
             .accessoryInline,
