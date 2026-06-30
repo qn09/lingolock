@@ -33,52 +33,25 @@ public struct VocabularyData {
     }
     
     private static func fetchWordsFromFirebase(for language: String, date: Date, forceRandom: Bool = false) {
-#if WIDGET_EXTENSION
-        return
-#else
         guard !isFetching else { return }
         isFetching = true
         
-        let db = Firestore.firestore()
-        db.collection("words").whereField("language", isEqualTo: language).getDocuments { snapshot, error in
+        Task {
             defer { 
                 DispatchQueue.main.async { isFetching = false }
             }
-            guard let documents = snapshot?.documents, !documents.isEmpty else {
-                print("No words found in Firebase for language: \(language)")
-                return
-            }
             
-            // If forceRandom is true, pick a random word. Otherwise use date-based hashing to pick the same word today.
-            let index: Int
-            if forceRandom {
-                index = Int.random(in: 0..<documents.count)
+            if let word = await fetchWordRESTAsync(for: language, date: date, forceRandom: forceRandom) {
+                DispatchQueue.main.async {
+                    AppSettings.shared.saveWord(word, for: date, language: language)
+                }
             } else {
-                let calendar = Calendar.current
-                let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
-                index = (dayOfYear - 1) % documents.count
-            }
-            
-            let doc = documents[index].data()
-            let word = Word(
-                id: documents[index].documentID,
-                foreignWord: doc["foreignWord"] as? String ?? "",
-                translation: doc["translation"] as? String ?? "",
-                pronunciation: doc["pronunciation"] as? String ?? "",
-                partOfSpeech: doc["partOfSpeech"] as? String ?? "noun",
-                meaning: doc["meaning"] as? String ?? "",
-                exampleForeign: doc["exampleForeign"] as? String ?? "",
-                language: language
-            )
-            
-            DispatchQueue.main.async {
-                AppSettings.shared.saveWord(word, for: date, language: language)
+                print("Failed to fetch from REST API in fetchWordsFromFirebase")
             }
         }
-#endif
     }
     
-    public static func fetchWordRESTAsync(for language: String, date: Date) async -> Word? {
+    public static func fetchWordRESTAsync(for language: String, date: Date, forceRandom: Bool = false) async -> Word? {
         let projectId = "web1-d1df7"
         let urlString = "https://firestore.googleapis.com/v1/projects/\(projectId)/databases/(default)/documents:runQuery"
         guard let url = URL(string: urlString) else { return nil }
@@ -115,9 +88,31 @@ public struct VocabularyData {
                 
                 guard !matchingDocs.isEmpty else { return nil }
                 
-                let calendar = Calendar.current
-                let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
-                let index = (dayOfYear - 1) % matchingDocs.count
+                let index: Int
+                if forceRandom {
+                    // Pick a random word. If we have the current word in UserDefaults, try to pick a different one if possible
+                    let currentIndex: Int? = nil // For simplicity just pick any random
+                    var randomIndex = Int.random(in: 0..<matchingDocs.count)
+                    
+                    // Simple attempt to avoid same word if we have more than 1
+                    if matchingDocs.count > 1 {
+                        if let savedWord = AppSettings.shared.getSavedWord(for: date, language: language) {
+                            for _ in 0..<5 {
+                                let docName = matchingDocs[randomIndex]["name"] as? String ?? ""
+                                let wordId = docName.components(separatedBy: "/").last ?? ""
+                                if wordId != savedWord.id {
+                                    break
+                                }
+                                randomIndex = Int.random(in: 0..<matchingDocs.count)
+                            }
+                        }
+                    }
+                    index = randomIndex
+                } else {
+                    let calendar = Calendar.current
+                    let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
+                    index = (dayOfYear - 1) % matchingDocs.count
+                }
                 
                 let selectedDoc = matchingDocs[index]
                 if let fields = selectedDoc["fields"] as? [String: Any] {
