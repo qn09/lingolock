@@ -8,7 +8,9 @@ struct MainDashboardView: View {
     @State private var animateWord = false
     
     var currentWord: Word {
-        VocabularyData.getWordOfTheDay(for: settings.selectedLanguage)
+        // Explicitly depend on dailyAiWords so SwiftUI redraws when it changes
+        _ = settings.dailyAiWords
+        return VocabularyData.getWordOfTheDay(for: settings.selectedLanguage)
     }
     
     var body: some View {
