@@ -142,11 +142,11 @@ public class AppSettings: ObservableObject {
     }
     
     public func isFavorited(_ word: Word) -> Bool {
-        return favoritedWordIds.contains(word.id.uuidString)
+        return favoritedWordIds.contains(word.id)
     }
     
     public func toggleFavorite(_ word: Word) {
-        let idString = word.id.uuidString
+        let idString = word.id
         if favoritedWordIds.contains(idString) {
             favoritedWordIds.remove(idString)
         } else {
