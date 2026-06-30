@@ -78,6 +78,70 @@ public struct VocabularyData {
 #endif
     }
     
+    public static func fetchWordRESTAsync(for language: String, date: Date) async -> Word? {
+        let projectId = "web1-d1df7"
+        let urlString = "https://firestore.googleapis.com/v1/projects/\(projectId)/databases/(default)/documents:runQuery"
+        guard let url = URL(string: urlString) else { return nil }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let queryBody: [String: Any] = [
+            "structuredQuery": [
+                "from": [["collectionId": "words"]],
+                "where": [
+                    "fieldFilter": [
+                        "field": ["fieldPath": "language"],
+                        "op": "EQUAL",
+                        "value": ["stringValue": language]
+                    ]
+                ]
+            ]
+        ]
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: queryBody)
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] {
+                
+                var matchingDocs: [[String: Any]] = []
+                for item in json {
+                    if let doc = item["document"] as? [String: Any] {
+                        matchingDocs.append(doc)
+                    }
+                }
+                
+                guard !matchingDocs.isEmpty else { return nil }
+                
+                let calendar = Calendar.current
+                let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
+                let index = (dayOfYear - 1) % matchingDocs.count
+                
+                let selectedDoc = matchingDocs[index]
+                if let fields = selectedDoc["fields"] as? [String: Any] {
+                    let docName = selectedDoc["name"] as? String ?? ""
+                    let wordId = docName.components(separatedBy: "/").last ?? UUID().uuidString
+                    
+                    return Word(
+                        id: wordId,
+                        foreignWord: (fields["foreignWord"] as? [String: Any])?["stringValue"] as? String ?? "",
+                        translation: (fields["translation"] as? [String: Any])?["stringValue"] as? String ?? "",
+                        pronunciation: (fields["pronunciation"] as? [String: Any])?["stringValue"] as? String ?? "",
+                        partOfSpeech: (fields["partOfSpeech"] as? [String: Any])?["stringValue"] as? String ?? "noun",
+                        meaning: (fields["meaning"] as? [String: Any])?["stringValue"] as? String ?? "",
+                        exampleForeign: (fields["exampleForeign"] as? [String: Any])?["stringValue"] as? String ?? "",
+                        language: language
+                    )
+                }
+            }
+        } catch {
+            print("Error fetching REST: \(error)")
+        }
+        return nil
+    }
+    
     public static func getHistory(for language: String, limit: Int = 10, relativeTo date: Date = Date()) -> [Word] {
         let selectedLanguage = languages.contains(language) ? language : "English"
         var history: [Word] = []

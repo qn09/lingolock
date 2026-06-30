@@ -13,33 +13,59 @@ struct Provider: TimelineProvider {
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let language = getSelectedLanguage()
-        let word = VocabularyData.getWordOfTheDay(for: language)
-        let entry = SimpleEntry(date: Date(), word: word)
-        completion(entry)
+        let currentDate = Date()
+        
+        if context.isPreview {
+            let sampleWord = Word(foreignWord: "serendipity", pronunciation: "seh-ren-DIP-i-tee", partOfSpeech: "noun",
+                                  meaning: "The occurrence and development of events by chance in a happy or beneficial way.",
+                                  exampleForeign: "Meeting my old friend at the airport was pure serendipity.", language: language)
+            completion(SimpleEntry(date: currentDate, word: sampleWord))
+            return
+        }
+        
+        Task {
+            var word = VocabularyData.getWordOfTheDay(for: language)
+            if word.foreignWord.starts(with: "LingoLock") {
+                if let fetchedWord = await VocabularyData.fetchWordRESTAsync(for: language, date: currentDate) {
+                    word = fetchedWord
+                }
+            }
+            let entry = SimpleEntry(date: currentDate, word: word)
+            completion(entry)
+        }
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
         let language = getSelectedLanguage()
-        
         let currentDate = Date()
         let calendar = Calendar.current
         
-        for dayOffset in 0..<3 {
-            guard let entryDate = calendar.date(byAdding: .day, value: dayOffset, to: currentDate) else { continue }
-            let midnightDate = calendar.startOfDay(for: entryDate)
+        Task {
+            var entries: [SimpleEntry] = []
             
-            let wordForDay = getOfflineWord(for: language, date: midnightDate)
-            
-            let triggerDate = dayOffset == 0 ? currentDate : midnightDate
-            let entry = SimpleEntry(date: triggerDate, word: wordForDay)
-            entries.append(entry)
+            for dayOffset in 0..<3 {
+                guard let entryDate = calendar.date(byAdding: .day, value: dayOffset, to: currentDate) else { continue }
+                let midnightDate = calendar.startOfDay(for: entryDate)
+                
+                var wordForDay = getOfflineWord(for: language, date: midnightDate)
+                
+                // If it's a placeholder, try to fetch via REST API
+                if wordForDay.foreignWord.starts(with: "LingoLock") {
+                    if let fetchedWord = await VocabularyData.fetchWordRESTAsync(for: language, date: midnightDate) {
+                        wordForDay = fetchedWord
+                    }
+                }
+                
+                let triggerDate = dayOffset == 0 ? currentDate : midnightDate
+                let entry = SimpleEntry(date: triggerDate, word: wordForDay)
+                entries.append(entry)
+            }
+    
+            let tomorrow = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
+            let nextMidnight = calendar.startOfDay(for: tomorrow)
+            let timeline = Timeline(entries: entries, policy: .after(nextMidnight))
+            completion(timeline)
         }
-
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
-        let nextMidnight = calendar.startOfDay(for: tomorrow)
-        let timeline = Timeline(entries: entries, policy: .after(nextMidnight))
-        completion(timeline)
     }
     
     private func getSelectedLanguage() -> String {
