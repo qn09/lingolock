@@ -130,19 +130,46 @@ struct MainDashboardView: View {
                     }
                     .padding(.vertical, 16)
                     
-                    // Speak Button
-                    Button(action: speakWord) {
-                        HStack {
-                            Image(systemName: "speaker.wave.2.fill")
-                            Text("Listen")
+                    // Speak Button and Next Word Button
+                    HStack(spacing: 16) {
+                        Button(action: speakWord) {
+                            HStack {
+                                Image(systemName: "speaker.wave.2.fill")
+                                Text("Listen")
+                            }
+                            .fontWeight(.medium)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(25)
+                            .shadow(color: Color.blue.opacity(0.3), radius: 8, x: 0, y: 4)
                         }
-                        .fontWeight(.medium)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 10)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(25)
-                        .shadow(color: Color.blue.opacity(0.3), radius: 8, x: 0, y: 4)
+                        
+                        Button(action: {
+                            withAnimation {
+                                VocabularyData.forceGenerateNewWord(for: settings.selectedLanguage)
+                                isCardFlipped = false
+                                animateWord = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    withAnimation(.easeOut(duration: 0.5)) {
+                                        animateWord = true
+                                    }
+                                }
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.right.circle.fill")
+                                Text("Đổi từ mới")
+                            }
+                            .fontWeight(.medium)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color.orange)
+                            .foregroundColor(.white)
+                            .cornerRadius(25)
+                            .shadow(color: Color.orange.opacity(0.3), radius: 8, x: 0, y: 4)
+                        }
                     }
                     
                     Divider()
