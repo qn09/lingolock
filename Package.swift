@@ -4,10 +4,9 @@ import PackageDescription
 let package = Package(
     name: "WordOfTheDay",
     platforms: [
-        .iOS(.v17)
+        .iOS(.v16)
     ],
     products: [
-        // App targets must be exposed as library products in SwiftPM for xtool.
         .library(
             name: "WordOfTheDay",
             targets: ["WordOfTheDay"]
@@ -16,6 +15,10 @@ let package = Package(
             name: "WordOfTheDayWidget",
             targets: ["WordOfTheDayWidget"]
         ),
+        .executable(
+            name: "TestFetch",
+            targets: ["TestFetch"]
+        )
     ],
     dependencies: [],
     targets: [
@@ -39,6 +42,13 @@ let package = Package(
             swiftSettings: [
                 .define("WIDGET_EXTENSION")
             ]
+        ),
+        .executableTarget(
+            name: "TestFetch",
+            dependencies: [
+                "Shared"
+            ],
+            path: "ios/TestFetch"
         )
     ]
 )

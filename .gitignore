@@ -45,3 +45,9 @@ web/.env
 .build/
 xtool/
 *.xip
+
+# Local sideload/signing output
+AltServerData/
+WordOfTheDay-Unsigned-IPA/
+WordOfTheDay-Unsigned-IPA*.zip
+conversation_summary_for_codex.md
