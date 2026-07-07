@@ -771,7 +771,6 @@ function switchTab(tabName) {
     }
 }
 
-// --- TEXT TO SPEECH (BCP-47 Voice Accents) ---
 function speakWordOfCard() {
     const word = getCurrentWord();
     
@@ -779,17 +778,43 @@ function speakWordOfCard() {
         // Stop current speech first
         window.speechSynthesis.cancel();
         
-        const utterance = new SpeechSynthesisUtterance(word.foreignWord);
+        // Clean up parentheticals for cleaner speech
+        let textToSpeak = word.foreignWord;
+        const parenIndex = textToSpeak.indexOf('(');
+        if (parenIndex !== -1) {
+            textToSpeak = textToSpeak.substring(0, parenIndex).trim();
+        }
+        
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
         utterance.lang = word.bcp47;
         utterance.rate = 0.85; // slightly slower for language learners
         
         // Find matching voice if possible (browser support varies)
         const voices = window.speechSynthesis.getVoices();
-        const matchingVoice = voices.find(voice => voice.lang.includes(word.bcp47));
+        const langCode = word.bcp47.toLowerCase().replace('_', '-');
+        const langPrefix = langCode.split('-')[0];
+        
+        let matchingVoice = voices.find(voice => {
+            const voiceLang = voice.lang.toLowerCase().replace('_', '-');
+            return voiceLang === langCode;
+        });
+        
+        if (!matchingVoice) {
+            matchingVoice = voices.find(voice => {
+                const voiceLang = voice.lang.toLowerCase().replace('_', '-');
+                return voiceLang.startsWith(langPrefix);
+            });
+        }
+        
         if (matchingVoice) {
             utterance.voice = matchingVoice;
         }
         
+        utterance.onerror = (event) => {
+            console.error("SpeechSynthesisUtterance error:", event);
+        };
+        
+        window.speechSynthesis.resume();
         window.speechSynthesis.speak(utterance);
     } else {
         alert("Text-to-speech is not supported in this browser. Please try Chrome, Safari, or Edge.");

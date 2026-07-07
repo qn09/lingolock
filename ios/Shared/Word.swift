@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Word: Codable, Identifiable, Hashable {
+public struct Word: Codable, Identifiable, Hashable, Sendable {
     public let id: String
     public let foreignWord: String
     public let translation: String // Translation in native language (e.g. Japanese or English)

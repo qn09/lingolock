@@ -1,4 +1,5 @@
 import SwiftUI
+import Shared
 
 struct HistoryView: View {
     @ObservedObject var settings = AppSettings.shared

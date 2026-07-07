@@ -40,3 +40,8 @@ Thumbs.db
 # Local secrets & built credentials
 ios/Shared/Secrets.swift
 web/.env
+
+# SwiftPM & xtool Build Directories
+.build/
+xtool/
+*.xip

@@ -1,12 +1,9 @@
 import Foundation
-#if !WIDGET_EXTENSION
-import FirebaseFirestore
-#endif
 
 public struct VocabularyData {
     public static let languages = ["English", "Japanese"]
     
-    private static var isFetching = false
+    private nonisolated(unsafe) static var isFetching = false
 
     public static func getWordOfTheDay(for language: String, date: Date = Date()) -> Word {
         let selectedLanguage = languages.contains(language) ? language : "English"
@@ -91,7 +88,6 @@ public struct VocabularyData {
                 let index: Int
                 if forceRandom {
                     // Pick a random word. If we have the current word in UserDefaults, try to pick a different one if possible
-                    let currentIndex: Int? = nil // For simplicity just pick any random
                     var randomIndex = Int.random(in: 0..<matchingDocs.count)
                     
                     // Simple attempt to avoid same word if we have more than 1

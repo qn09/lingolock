@@ -1,0 +1,10 @@
+version: 1
+bundleID: com.language.wordoftheday
+product: WordOfTheDay
+infoPath: ios/WordOfTheDay/Info.plist
+entitlementsPath: ios/WordOfTheDay/WordOfTheDay.entitlements
+extensions:
+  - product: WordOfTheDayWidget
+    bundleID: com.language.wordoftheday.widget
+    infoPath: ios/WordOfTheDayWidget/Info.plist
+    entitlementsPath: ios/WordOfTheDayWidget/WordOfTheDayWidget.entitlements

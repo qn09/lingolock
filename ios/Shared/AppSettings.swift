@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import WidgetKit
 
-public class AppSettings: ObservableObject {
+public class AppSettings: ObservableObject, @unchecked Sendable {
     public static let shared = AppSettings()
     
     // Replace with your actual App Group identifier configured in Apple Developer Portal

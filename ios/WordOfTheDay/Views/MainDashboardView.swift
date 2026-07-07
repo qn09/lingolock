@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import Shared
 
 struct MainDashboardView: View {
     @ObservedObject var settings = AppSettings.shared
@@ -270,7 +271,15 @@ struct MainDashboardView: View {
     }
     
     private func speakWord() {
-        let utterance = AVSpeechUtterance(string: currentWord.foreignWord)
+        // Clean up the text to speak by removing any text in parentheses
+        var stringToSpeak = currentWord.foreignWord
+        if let range = stringToSpeak.range(of: " (") {
+            stringToSpeak = String(stringToSpeak[..<range.lowerBound])
+        } else if let range = stringToSpeak.range(of: "(") {
+            stringToSpeak = String(stringToSpeak[..<range.lowerBound])
+        }
+        
+        let utterance = AVSpeechUtterance(string: stringToSpeak.trimmingCharacters(in: .whitespacesAndNewlines))
         
         // Map language name to BCP 47 code
         switch settings.selectedLanguage {
@@ -283,6 +292,14 @@ struct MainDashboardView: View {
         }
         
         utterance.rate = 0.5 // Slower speed for clear learning
+        
+        // Configure AVAudioSession to play audio even when the silent switch is on
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("Failed to set AVAudioSession category: \(error.localizedDescription)")
+        }
         
         // Stop current speech if speaking, then play new one
         speechSynthesizer.stopSpeaking(at: .immediate)
