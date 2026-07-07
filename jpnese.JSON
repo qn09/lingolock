@@ -1,0 +1,603 @@
+
+  [
+    {
+    "tu_vung": "私",
+    "cach_doc": "わたし",
+    "nghia": "tôi",
+    "vi_du": "わたしはマイク・ミラーです。[1]"
+  },
+  {
+    "tu_vung": "会社員",
+    "cach_doc": "かいしゃいん",
+    "nghia": "nhân viên công ty",
+    "vi_du": "わたしは会社員です。[1]"
+  },
+  {
+    "tu_vung": "学生",
+    "cach_doc": "がくせい",
+    "nghia": "học sinh, sinh viên",
+    "vi_du": "サントスさんは学生じゃありません。[2]"
+  },
+  {
+    "tu_vung": "先生",
+    "cach_doc": "せんせい",
+    "nghia": "giáo viên",
+    "vi_du": "ミラーさんは先生ですか。[3]"
+  },
+  {
+    "tu_vung": "アメリカ人",
+    "cach_doc": "あめりかじん",
+    "nghia": "người Mỹ",
+    "vi_du": "ミラーさんはアメリカ人ですか。[3]"
+  },
+  {
+    "tu_vung": "方",
+    "cach_doc": "かた",
+    "nghia": "vị, người (cách nói lịch sự)",
+    "vi_du": "あの方はどなたですか。[4]"
+  },
+  {
+    "tu_vung": "社員",
+    "cach_doc": "しゃいん",
+    "nghia": "nhân viên công ty (dùng kèm tên công ty)",
+    "vi_du": "ミラーさんはIMCの社員です。[5]"
+  },
+  {
+    "tu_vung": "本",
+    "cach_doc": "ほん",
+    "nghia": "sách",
+    "vi_du": "この本はわたしのです。[6]"
+  },
+  {
+    "tu_vung": "辞書",
+    "cach_doc": "じしょ",
+    "nghia": "từ điển",
+    "vi_du": "それは辞書ですか。[6]"
+  },
+  {
+    "tu_vung": "傘",
+    "cach_doc": "かさ",
+    "nghia": "ô, dù",
+    "vi_du": "これはだれの傘ですか。[6]"
+  },
+  {
+    "tu_vung": "コンピューター",
+    "cach_doc": "コンピューター",
+    "nghia": "máy vi tính",
+    "vi_du": "これはコンピューターの本です。[7]"
+  },
+  {
+    "tu_vung": "鞄",
+    "cach_doc": "かばん",
+    "nghia": "cặp sách, túi sách",
+    "vi_du": "このかばんはあなたのですか。[8]"
+  },
+  {
+    "tu_vung": "お手洗い",
+    "cach_doc": "おてあらい",
+    "nghia": "nhà vệ sinh",
+    "vi_du": "お手洗いはあそこです。[9]"
+  },
+  {
+    "tu_vung": "電話",
+    "cach_doc": "でんわ",
+    "nghia": "điện thoại",
+    "vi_du": "電話は2階です。[9]"
+  },
+  {
+    "tu_vung": "学校",
+    "cach_doc": "がっこう",
+    "nghia": "trường học",
+    "vi_du": "学校はどこですか。[10]"
+  },
+  {
+    "tu_vung": "会社",
+    "cach_doc": "かいしゃ",
+    "nghia": "công ty",
+    "vi_du": "会社はどちらですか。[10]"
+  },
+  {
+    "tu_vung": "起きます",
+    "cach_doc": "おきます",
+    "nghia": "thức dậy",
+    "vi_du": "毎朝6時に起きます。[11]"
+  },
+  {
+    "tu_vung": "明日",
+    "cach_doc": "あした",
+    "nghia": "ngày mai",
+    "vi_du": "あした6時に起きます。[11]"
+  },
+  {
+    "tu_vung": "今朝",
+    "cach_doc": "けさ",
+    "nghia": "sáng nay",
+    "vi_du": "けさ6時に起きました。[11]"
+  },
+  {
+    "tu_vung": "毎日",
+    "cach_doc": "まいにち",
+    "nghia": "hàng ngày",
+    "vi_du": "毎日勉強します。[11]"
+  },
+  {
+    "tu_vung": "銀行",
+    "cach_doc": "ぎんこう",
+    "nghia": "ngân hàng",
+    "vi_du": "銀行の休みは土曜日と日曜日です。[12]"
+  },
+  {
+    "tu_vung": "昼休み",
+    "cach_doc": "ひるやすみ",
+    "nghia": "giờ nghỉ trưa",
+    "vi_du": "昼休みは12時からです。[13]"
+  },
+  {
+    "tu_vung": "勉強します",
+    "cach_doc": "べんきょうします",
+    "nghia": "học",
+    "vi_du": "9時から5時まで勉強します。[13]"
+  },
+  {
+    "tu_vung": "東京",
+    "cach_doc": "とうきょう",
+    "nghia": "Tokyo",
+    "vi_du": "大阪から東京まで3時間かかります。[13]"
+  },
+  {
+    "tu_vung": "行きます",
+    "cach_doc": "いきます",
+    "nghia": "đi",
+    "vi_du": "京都へ行きます。[14]"
+  },
+  {
+    "tu_vung": "来ます",
+    "cach_doc": "きます",
+    "nghia": "đến",
+    "vi_du": "日本へ来ました。[14]"
+  },
+  {
+    "tu_vung": "帰ります",
+    "cach_doc": "かえります",
+    "nghia": "về",
+    "vi_du": "うちへ帰ります。[14]"
+  },
+  {
+    "tu_vung": "何処",
+    "cach_doc": "どこ",
+    "nghia": "ở đâu",
+    "vi_du": "どこへも行きません。[14]"
+  },
+  {
+    "tu_vung": "食べます",
+    "cach_doc": "たべます",
+    "nghia": "ăn",
+    "vi_du": "何も食べません。[14]"
+  },
+  {
+    "tu_vung": "誰",
+    "cach_doc": "だれ",
+    "nghia": "ai",
+    "vi_du": "だれも来ませんでした。[14]"
+  },
+  {
+    "tu_vung": "電車",
+    "cach_doc": "でんしゃ",
+    "nghia": "tàu điện",
+    "vi_du": "電車で行きます。[15]"
+  },
+  {
+    "tu_vung": "タクシー",
+    "cach_doc": "タクシー",
+    "nghia": "tắc-xi",
+    "vi_du": "タクシーで来ました。[15]"
+  },
+  {
+    "tu_vung": "駅",
+    "cach_doc": "えき",
+    "nghia": "nhà ga",
+    "vi_du": "駅から歩いて帰りました。[15]"
+  },
+  {
+    "tu_vung": "家族",
+    "cach_doc": "かぞく",
+    "nghia": "gia đình",
+    "vi_du": "家族と日本へ来ました。[15]"
+  },
+  {
+    "tu_vung": "一人",
+    "cach_doc": "ひとり",
+    "nghia": "một người",
+    "vi_du": "1人で東京へ行きます。[16]"
+  },
+  {
+    "tu_vung": "何時",
+    "cach_doc": "いつ",
+    "nghia": "bao giờ, khi nào",
+    "vi_du": "いつ日本へ来ましたか。[16]"
+  },
+  {
+    "tu_vung": "来週",
+    "cach_doc": "らいしゅう",
+    "nghia": "tuần sau",
+    "vi_du": "来週行きます。[16]"
+  },
+  {
+    "tu_vung": "飲みます",
+    "cach_doc": "のみます",
+    "nghia": "uống",
+    "vi_du": "ジュースを飲みます。[17]"
+  },
+  {
+    "tu_vung": "宿題",
+    "cach_doc": "しゅくだい",
+    "nghia": "bài tập về nhà",
+    "vi_du": "宿題をします。[18]"
+  },
+  {
+    "tu_vung": "月曜日",
+    "cach_doc": "げつようび",
+    "nghia": "thứ hai",
+    "vi_du": "月曜日何をしますか。[18]"
+  },
+  {
+    "tu_vung": "昨日",
+    "cach_doc": "きのう",
+    "nghia": "hôm qua",
+    "vi_du": "きのう何をしましたか。[18]"
+  },
+  {
+    "tu_vung": "サッカー",
+    "cach_doc": "サッカー",
+    "nghia": "bóng đá",
+    "vi_du": "サッカーをしました。[18]"
+  },
+  {
+    "tu_vung": "何",
+    "cach_doc": "なん",
+    "nghia": "cái gì",
+    "vi_du": "それは何ですか。[18]"
+  },
+  {
+    "tu_vung": "寝ます",
+    "cach_doc": "ねます",
+    "nghia": "ngủ",
+    "vi_du": "寝るまえに、何と言いますか。[19]"
+  },
+  {
+    "tu_vung": "買います",
+    "cach_doc": "かいます",
+    "nghia": "mua",
+    "vi_du": "何を買いますか。[19]"
+  },
+  {
+    "tu_vung": "新聞",
+    "cach_doc": "しんぶん",
+    "nghia": "báo",
+    "vi_du": "駅で新聞を買います。[20]"
+  },
+  {
+    "tu_vung": "一緒に",
+    "cach_doc": "いっしょに",
+    "nghia": "cùng nhau",
+    "vi_du": "いっしょに京都へ行きませんか。[20]"
+  },
+  {
+    "tu_vung": "一寸",
+    "cach_doc": "ちょっと",
+    "nghia": "một chút",
+    "vi_du": "ちょっと休みましょう。[21]"
+  },
+  {
+    "tu_vung": "昼ごはん",
+    "cach_doc": "ひるごはん",
+    "nghia": "bữa trưa",
+    "vi_du": "いっしょに昼ごはんを食べませんか。[21]"
+  },
+  {
+    "tu_vung": "日曜日",
+    "cach_doc": "にちようび",
+    "nghia": "chủ nhật",
+    "vi_du": "日曜日京都へ行きました。[21]"
+  },
+  {
+    "tu_vung": "箸",
+    "cach_doc": "はし",
+    "nghia": "đũa",
+    "vi_du": "はしで食べます。[22]"
+  },
+  {
+    "tu_vung": "日本語",
+    "cach_doc": "にほんご",
+    "nghia": "tiếng Nhật",
+    "vi_du": "日本語でレポートを書きます。[22]"
+  },
+  {
+    "tu_vung": "花",
+    "cach_doc": "はな",
+    "nghia": "hoa",
+    "vi_du": "わたしは木村さんに花をあげました。[23]"
+  },
+  {
+    "tu_vung": "貸します",
+    "cach_doc": "かします",
+    "nghia": "cho mượn",
+    "vi_du": "わたしはイーさんに本を貸しました。[23]"
+  },
+  {
+    "tu_vung": "教えます",
+    "cach_doc": "おしえます",
+    "nghia": "dạy",
+    "vi_du": "わたしは山田さんに英語を教えます。[23]"
+  },
+  {
+    "tu_vung": "貰います",
+    "cach_doc": "もらいます",
+    "nghia": "nhận",
+    "vi_du": "わたしは山田さんに花をもらいました。[24]"
+  },
+  {
+    "tu_vung": "借ります",
+    "cach_doc": "かります",
+    "nghia": "mượn",
+    "vi_du": "わたしはカリナさんにCDを借りました。[24]"
+  },
+  {
+    "tu_vung": "習います",
+    "cach_doc": "ならいます",
+    "nghia": "học, tập",
+    "vi_du": "わたしはワンさんに中国語を習います。[24]"
+  },
+  {
+    "tu_vung": "お金",
+    "cach_doc": "おかね",
+    "nghia": "tiền",
+    "vi_du": "銀行からお金を借りました。[25]"
+  },
+  {
+    "tu_vung": "荷物",
+    "cach_doc": "にもつ",
+    "nghia": "hành lý, đồ đạc",
+    "vi_du": "もう荷物を送りましたか。[25]"
+  },
+  {
+    "tu_vung": "親切",
+    "cach_doc": "しんせつ",
+    "nghia": "tốt bụng, thân thiện",
+    "vi_du": "ワット先生は親切です。[26]"
+  },
+  {
+    "tu_vung": "高い",
+    "cach_doc": "たかい",
+    "nghia": "cao, đắt",
+    "vi_du": "富士山は高いです。[26]"
+  },
+  {
+    "tu_vung": "寒い",
+    "cach_doc": "さむい",
+    "nghia": "lạnh, rét",
+    "vi_du": "ペキンは寒いですか。[27]"
+  },
+  {
+    "tu_vung": "賑やか",
+    "cach_doc": "にぎやか",
+    "nghia": "náo nhiệt",
+    "vi_du": "奈良公園はにぎやかですか。[27]"
+  },
+  {
+    "tu_vung": "山",
+    "cach_doc": "やま",
+    "nghia": "núi",
+    "vi_du": "富士山は高い山です。[28]"
+  },
+  {
+    "tu_vung": "食べ物",
+    "cach_doc": "たべもの",
+    "nghia": "đồ ăn",
+    "vi_du": "日本の食べ物はおいしいですが、高いです。[29]"
+  },
+  {
+    "tu_vung": "迚も",
+    "cach_doc": "とても",
+    "nghia": "rất",
+    "vi_du": "ペキンはとても寒いです。[29]"
+  },
+  {
+    "tu_vung": "映画",
+    "cach_doc": "えいが",
+    "nghia": "phim",
+    "vi_du": "これはとても有名な映画です。[29]"
+  },
+  {
+    "tu_vung": "町",
+    "cach_doc": "まち",
+    "nghia": "thị trấn, thành phố",
+    "vi_du": "奈良はどんな町ですか。[30]"
+  },
+  {
+    "tu_vung": "古い",
+    "cach_doc": "ふるい",
+    "nghia": "cũ",
+    "vi_du": "古い町です。[30]"
+  },
+  {
+    "tu_vung": "仕事",
+    "cach_doc": "しごと",
+    "nghia": "công việc",
+    "vi_du": "お仕事はどうですか。[30]"
+  },
+  {
+    "tu_vung": "忙しい",
+    "cach_doc": "いそがしい",
+    "nghia": "bận rộn",
+    "vi_du": "忙しいですが、おもしろいです。[30]"
+  },
+  {
+    "tu_vung": "料理",
+    "cach_doc": "りょうり",
+    "nghia": "món ăn, nấu ăn",
+    "vi_du": "わたしはイタリア料理が好きです。[31]"
+  },
+  {
+    "tu_vung": "スポーツ",
+    "cach_doc": "スポーツ",
+    "nghia": "thể thao",
+    "vi_du": "どんなスポーツが好きですか。[31]"
+  },
+  {
+    "tu_vung": "少し",
+    "cach_doc": "すこし",
+    "nghia": "một ít, một chút",
+    "vi_du": "英語が少しわかります。[32]"
+  },
+  {
+    "tu_vung": "時間",
+    "cach_doc": "じかん",
+    "nghia": "thời gian",
+    "vi_du": "時間がありませんから、新聞を読みません。[33]"
+  },
+  {
+    "tu_vung": "毎朝",
+    "cach_doc": "まいあさ",
+    "nghia": "mỗi sáng",
+    "vi_du": "毎朝新聞を読みますか。[33]"
+  },
+  {
+    "tu_vung": "如何して",
+    "cach_doc": "どうして",
+    "nghia": "tại sao",
+    "vi_du": "どうして朝新聞を読みませんか。[34]"
+  },
+  {
+    "tu_vung": "早く",
+    "cach_doc": "はやく",
+    "nghia": "sớm, nhanh",
+    "vi_du": "きょうは早く帰ります。[34]"
+  },
+  {
+    "tu_vung": "子ども",
+    "cach_doc": "こども",
+    "nghia": "con cái, trẻ em",
+    "vi_du": "子どもの誕生日ですから。[34]"
+  },
+  {
+    "tu_vung": "桜",
+    "cach_doc": "さくら",
+    "nghia": "hoa anh đào",
+    "vi_du": "桜があります。[35]"
+  },
+  {
+    "tu_vung": "公園",
+    "cach_doc": "こうえん",
+    "nghia": "công viên",
+    "vi_du": "公園があります。[35]"
+  },
+  {
+    "tu_vung": "犬",
+    "cach_doc": "いぬ",
+    "nghia": "con chó",
+    "vi_du": "犬がいます。[36]"
+  },
+  {
+    "tu_vung": "机",
+    "cach_doc": "つくえ",
+    "nghia": "bàn",
+    "vi_du": "わたしの部屋に机があります。[36]"
+  },
+  {
+    "tu_vung": "事務所",
+    "cach_doc": "じむしょ",
+    "nghia": "văn phòng",
+    "vi_du": "事務所にミラーさんがいます。[36]"
+  },
+  {
+    "tu_vung": "地下",
+    "cach_doc": "ちか",
+    "nghia": "tầng hầm",
+    "vi_du": "地下に何がありますか。[37]"
+  },
+  {
+    "tu_vung": "受付",
+    "cach_doc": "うけつけ",
+    "nghia": "quầy lễ tân",
+    "vi_du": "受付にだれがいますか。[37]"
+  },
+  {
+    "tu_vung": "千葉県",
+    "cach_doc": "ちばけん",
+    "nghia": "tỉnh Chiba",
+    "vi_du": "東京ディズニーランドは千葉県にあります。[38]"
+  },
+  {
+    "tu_vung": "写真",
+    "cach_doc": "しゃしん",
+    "nghia": "bức ảnh",
+    "vi_du": "机の上に写真があります。[39]"
+  },
+  {
+    "tu_vung": "間",
+    "cach_doc": "あいだ",
+    "nghia": "ở giữa",
+    "vi_du": "本屋は花屋とスーパーの間にあります。[39]"
+  },
+  {
+    "tu_vung": "箱",
+    "cach_doc": "はこ",
+    "nghia": "cái hộp",
+    "vi_du": "箱の中に手紙や写真などがあります。[40]"
+  },
+  {
+    "tu_vung": "買います",
+    "cach_doc": "かいます",
+    "nghia": "mua",
+    "vi_du": "りんごを4つ買いました。[41]"
+  },
+  {
+    "tu_vung": "外国人",
+    "cach_doc": "がいこくじん",
+    "nghia": "người nước ngoài",
+    "vi_du": "外国人の学生が2人います。[41]"
+  },
+  {
+    "tu_vung": "幾つ",
+    "cach_doc": "いくつ",
+    "nghia": "bao nhiêu cái",
+    "vi_du": "みかんをいくつ買いましたか。[42]"
+  },
+  {
+    "tu_vung": "会議",
+    "cach_doc": "かいぎ",
+    "nghia": "cuộc họp",
+    "vi_du": "会議は5時までに終わります。[43]"
+  },
+  {
+    "tu_vung": "手紙",
+    "cach_doc": "てがみ",
+    "nghia": "bức thư",
+    "vi_du": "寝るまえに、手紙を書きます。[44]"
+  },
+  {
+    "tu_vung": "休みます",
+    "cach_doc": "やすみます",
+    "nghia": "nghỉ làm, nghỉ ngơi",
+    "vi_du": "妻が病気のとき、会社を休みます。[45]"
+  },
+  {
+    "tu_vung": "掃除",
+    "cach_doc": "そうじ",
+    "nghia": "dọn dẹp vệ sinh",
+    "vi_du": "友達が来るまえに、部屋を掃除します。[45]"
+  },
+  {
+    "tu_vung": "雨",
+    "cach_doc": "あめ",
+    "nghia": "mưa",
+    "vi_du": "あした雨が降ると思います。[46]"
+  },
+  {
+    "tu_vung": "薬",
+    "cach_doc": "くすり",
+    "nghia": "thuốc",
+    "vi_du": "薬を飲まなければなりません。[47]"
+  }
+]

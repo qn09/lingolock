@@ -42,6 +42,7 @@ targets:
       properties:
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    dependencies: []
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.language.wordoftheday.widget
       TARGETED_DEVICE_FAMILY: "1"

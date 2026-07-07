@@ -594,10 +594,6 @@ body {
     letter-spacing: -0.2px;
 }
 
-.widget-rect-header .widget-flag {
-    font-size: 11px;
-}
-
 .lockscreen-widget-rectangular .widget-pronunciation {
     font-size: 9px;
     opacity: 0.6;
@@ -626,10 +622,6 @@ body {
     color: white;
     box-shadow: 0 4px 15px var(--glass-shadow);
     animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.lockscreen-widget-circular .widget-circular-flag {
-    font-size: 16px;
 }
 
 .lockscreen-widget-circular .widget-circular-letters {

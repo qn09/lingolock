@@ -1,0 +1,504 @@
+{
+  "vocabulary_list": [
+    {
+      "word": "Advertising industry",
+      "meaning": "The businesses and organizations that create, plan, and handle advertising.",
+      "example": "The advertising industry creates a range of job opportunities for many people."
+    },
+    {
+      "word": "Tax revenues",
+      "meaning": "Income that a government receives from taxpayers.",
+      "example": "The government would lose a huge amount of tax revenues from advertising agencies."
+    },
+    {
+      "word": "Shopping choices",
+      "meaning": "The decisions consumers make when buying products.",
+      "example": "Advertisements provide customers with information so they can make better shopping choices."
+    },
+    {
+      "word": "Wildlife habitats",
+      "meaning": "The natural environments where animals live.",
+      "example": "Enormous areas of rainforest have been cut down, destroying wildlife habitats."
+    },
+    {
+      "word": "Marine environment",
+      "meaning": "The ecosystems of oceans and seas.",
+      "example": "Tourism in coastal areas has an adverse impact on the marine environment."
+    },
+    {
+      "word": "Overfishing",
+      "meaning": "Catching too many fish, causing population decline.",
+      "example": "Overfishing could directly affect the food chain."
+    },
+    {
+      "word": "Medical breakthroughs",
+      "meaning": "Significant advances or discoveries in medicine.",
+      "example": "Over the past few decades, there have been a number of medical breakthroughs using animal experimentation."
+    },
+    {
+      "word": "Laboratory animals",
+      "meaning": "Animals used for scientific research and testing.",
+      "example": "Laboratory animals often have to be subjected to toxic substances."
+    },
+    {
+      "word": "Social responsibilities",
+      "meaning": "The ethical obligations of businesses to benefit society.",
+      "example": "A company that struggles financially is unlikely to prioritize social responsibilities."
+    },
+    {
+      "word": "Multinational companies",
+      "meaning": "Corporations that operate in multiple countries.",
+      "example": "Multinational companies create a range of job opportunities for local people."
+    },
+    {
+      "word": "Living standards",
+      "meaning": "The quality of life and wealth experienced by people.",
+      "example": "This helps improve their living standards and boost the local economy."
+    },
+    {
+      "word": "Culture shock",
+      "meaning": "The feeling of disorientation experienced by someone visiting a new culture.",
+      "example": "They would avoid culture shock or other culture-related problems."
+    },
+    {
+      "word": "National identities",
+      "meaning": "The characteristics and traditions that define a nation.",
+      "example": "Some think that many countries will lose their national identities as a result."
+    },
+    {
+      "word": "Aging population",
+      "meaning": "A population with a high proportion of elderly people.",
+      "example": "Some people believe that the aging population is good for business."
+    },
+    {
+      "word": "Work productivity",
+      "meaning": "The efficiency and output of employees.",
+      "example": "Working collaboratively helps improve work productivity and increase profits."
+    },
+    {
+      "word": "Unemployment rates",
+      "meaning": "The percentage of the labor force without jobs.",
+      "example": "The increase in the number of aging populations could lead to higher unemployment rates."
+    },
+    {
+      "word": "Respiratory diseases",
+      "meaning": "Illnesses that affect the lungs and breathing.",
+      "example": "Air pollution causes urban dwellers various health problems such as respiratory diseases."
+    },
+    {
+      "word": "Public spaces",
+      "meaning": "Areas accessible to all citizens, like parks and squares.",
+      "example": "Public spaces such as squares and parks help improve public health."
+    },
+    {
+      "word": "Leisure amenities",
+      "meaning": "Facilities designed for recreation and relaxation.",
+      "example": "Urban parks are often equipped with leisure amenities."
+    },
+    {
+      "word": "Carbon dioxide",
+      "meaning": "A gas produced by burning carbon and organic compounds.",
+      "example": "Parks help reduce the amount of carbon dioxide in the atmosphere."
+    },
+    {
+      "word": "Climate change",
+      "meaning": "Long-term shifts in temperatures and weather patterns.",
+      "example": "Reducing emissions mitigates air pollution and climate change."
+    },
+    {
+      "word": "Suburban areas",
+      "meaning": "Residential regions on the outskirts of a city.",
+      "example": "It would be better if more enterprises migrate to suburban areas."
+    },
+    {
+      "word": "Skilled workers",
+      "meaning": "Employees with specialized training or experience.",
+      "example": "A lack of skilled workers can reduce productivity."
+    },
+    {
+      "word": "High-rise building",
+      "meaning": "A tall building with multiple floors.",
+      "example": "An apartment in a high-rise building would be a better alternative to expensive houses."
+    },
+    {
+      "word": "Financial difficulties",
+      "meaning": "Problems related to a lack of money.",
+      "example": "Many migrants face financial difficulties due to high living costs."
+    },
+    {
+      "word": "Sedentary activities",
+      "meaning": "Activities that involve much sitting and little physical exercise.",
+      "example": "The popularity of sedentary leisure activities prevents people from doing enough physical exercise."
+    },
+    {
+      "word": "Road safety",
+      "meaning": "Measures taken to reduce the risk of traffic accidents.",
+      "example": "More traffic monitoring cameras should be installed to improve road safety."
+    },
+    {
+      "word": "Juvenile crimes",
+      "meaning": "Illegal acts committed by minors or young people.",
+      "example": "The first reason for rising juvenile crimes is a lack of parental guidance."
+    },
+    {
+      "word": "Peer pressure",
+      "meaning": "The influence exerted by a peer group encouraging a person to change their behavior.",
+      "example": "Youngsters might engage in criminal activities because of peer pressure."
+    },
+    {
+      "word": "Shoplifting",
+      "meaning": "The act of stealing goods from a store.",
+      "example": "Young people who commit minor offences such as shoplifting can be sent to reform schools."
+    },
+    {
+      "word": "Imprisonment",
+      "meaning": "The state of being held in prison.",
+      "example": "Imprisonment could help prevent offenders from reoffending."
+    },
+    {
+      "word": "Reoffend",
+      "meaning": "To commit a crime again.",
+      "example": "Many prisoners breed resentment and reoffend after being released."
+    },
+    {
+      "word": "Gender stereotypes",
+      "meaning": "Preconceived ideas about the characteristics or roles of men and women.",
+      "example": "Children learn about gender stereotypes from their parents at an early age."
+    },
+    {
+      "word": "Academic results",
+      "meaning": "The grades and achievements students obtain in school.",
+      "example": "Distractions could lead to lower academic results."
+    },
+    {
+      "word": "Distance learning",
+      "meaning": "A method of studying where teachers and students do not meet in a classroom.",
+      "example": "Distance learning programmes provide students with flexibility and convenience."
+    },
+    {
+      "word": "Patriotism",
+      "meaning": "Love for and devotion to one's country.",
+      "example": "Studying history helps develop one's patriotism."
+    },
+    {
+      "word": "Scientific experiments",
+      "meaning": "Tests or procedures carried out under controlled conditions to discover facts.",
+      "example": "Carrying out scientific experiments in the laboratory is very engaging."
+    },
+    {
+      "word": "Core subjects",
+      "meaning": "Essential subjects that all students must study.",
+      "example": "Core subjects such as maths tend to be stressful and demanding."
+    },
+    {
+      "word": "Renewable energy",
+      "meaning": "Energy from a source that is not depleted when used, such as wind or solar power.",
+      "example": "The government should encourage industries to use renewable energy sources."
+    },
+    {
+      "word": "Fossil fuels",
+      "meaning": "Natural fuels such as coal or gas formed from the remains of living organisms.",
+      "example": "Fossil fuels are non-renewable energy sources because their supply is limited."
+    },
+    {
+      "word": "Global warming",
+      "meaning": "The gradual increase in the overall temperature of the Earth's atmosphere.",
+      "example": "Carbon dioxide emissions are responsible for air pollution and global warming."
+    },
+    {
+      "word": "Radioactive waste",
+      "meaning": "Hazardous waste containing radioactive material.",
+      "example": "Radioactive waste produced from nuclear power can pose a serious threat to the environment."
+    },
+    {
+      "word": "Family bonds",
+      "meaning": "The strong connections and relationships between family members.",
+      "example": "A growing generation gap could weaken family bonds."
+    },
+    {
+      "word": "Household chores",
+      "meaning": "Routine tasks in the maintenance of a home.",
+      "example": "Time spent on household chores will be reduced with the participation of both partners."
+    },
+    {
+      "word": "Breadwinner",
+      "meaning": "A person who earns money to support a family.",
+      "example": "Fathers traditionally take on the role of primary breadwinner."
+    },
+    {
+      "word": "Homemaker",
+      "meaning": "A person, especially a woman, who manages a home.",
+      "example": "The job of homemaker is traditionally done by mothers."
+    },
+    {
+      "word": "Fast food chains",
+      "meaning": "Restaurants that prepare and serve food quickly.",
+      "example": "The appearance of fast food chains has altered eating habits."
+    },
+    {
+      "word": "Obesity",
+      "meaning": "The condition of being grossly fat or overweight.",
+      "example": "Fast food is the primary cause of obesity among children."
+    },
+    {
+      "word": "Imported food",
+      "meaning": "Food brought into a country from abroad for sale.",
+      "example": "Many people choose to buy imported food rather than food produced locally."
+    },
+    {
+      "word": "Foreign investors",
+      "meaning": "Individuals or companies that invest capital in another country.",
+      "example": "An area with a reliable internet connection would be more attractive to foreign investors."
+    },
+    {
+      "word": "Cultural diversity",
+      "meaning": "The existence of a variety of cultural or ethnic groups within a society.",
+      "example": "Movies imported from other nations make great contributions to cultural diversity."
+    },
+    {
+      "word": "Income inequality",
+      "meaning": "The unequal distribution of income across a population.",
+      "example": "Widening income inequality could lead to social unrest."
+    },
+    {
+      "word": "Progressive tax",
+      "meaning": "A tax system where the tax rate increases as the taxable amount increases.",
+      "example": "It is necessary for the government to employ a progressive tax system."
+    },
+    {
+      "word": "Traditional clothing",
+      "meaning": "Garments representing the historic culture of a region.",
+      "example": "In many countries, people now wear western clothes rather than traditional clothing."
+    },
+    {
+      "word": "Outward appearance",
+      "meaning": "The external look or design of something.",
+      "example": "When designing a building, the function is normally more important than the outward appearance."
+    },
+    {
+      "word": "Water scarcity",
+      "meaning": "The lack of sufficient available water resources to meet demand.",
+      "example": "Many parts of the world are suffering from water scarcity due to prolonged droughts."
+    },
+    {
+      "word": "Space exploration",
+      "meaning": "The investigation of physical conditions in space and on stars, planets, and other celestial bodies.",
+      "example": "Exploring other planets through space exploration might help us find a new home."
+    },
+    {
+      "word": "Driverless cars",
+      "meaning": "Vehicles equipped to operate without human intervention.",
+      "example": "Several governments are considering allowing driverless cars to be widely used."
+    },
+    {
+      "word": "Private healthcare",
+      "meaning": "Medical services provided by entities other than the government.",
+      "example": "People who choose private healthcare have the freedom to choose their own doctor."
+    },
+    {
+      "word": "Extreme sports",
+      "meaning": "Activities perceived as involving a high degree of risk.",
+      "example": "Extreme sports provide players with valuable skills and life lessons."
+    },
+    {
+      "word": "Printed newspapers",
+      "meaning": "Physical publications containing news and information.",
+      "example": "Online news is updated much faster than news in traditional printed newspapers."
+    },
+    {
+      "word": "Space tourism",
+      "meaning": "Recreational space travel.",
+      "example": "The development of the space tourism industry would create more employment opportunities."
+    },
+    {
+      "word": "Natural habitats",
+      "meaning": "The natural environments in which plants and animals live.",
+      "example": "The construction of tourist facilities could destroy natural habitats."
+    },
+    {
+      "word": "Cultural identity",
+      "meaning": "The feeling of belonging to a group based on shared culture.",
+      "example": "If a traditional costume disappeared, it would lead to a loss of cultural identity."
+    },
+    {
+      "word": "Traffic congestion",
+      "meaning": "A condition on transport networks characterized by slower speeds and longer trip times.",
+      "example": "To solve the problem of traffic congestion, governments could improve public transport."
+    },
+    {
+      "word": "Academic qualifications",
+      "meaning": "Degrees or diplomas obtained through formal education.",
+      "example": "Some employers think that academic qualifications are more important than life experience."
+    },
+    {
+      "word": "Overpopulation",
+      "meaning": "The condition of having a population so dense as to cause environmental deterioration.",
+      "example": "Overpopulation is putting heavy pressure on water supplies."
+    },
+    {
+      "word": "Natural resources",
+      "meaning": "Materials or substances such as minerals, forests, water, and fertile land that occur in nature.",
+      "example": "Overpopulation could lead to the depletion of natural resources."
+    },
+    {
+      "word": "Telecommunication networks",
+      "meaning": "Systems allowing communication over distances.",
+      "example": "Undeveloped nations lack fundamental infrastructure such as telecommunication networks."
+    },
+    {
+      "word": "Technical support",
+      "meaning": "Assistance provided regarding technical or mechanical issues.",
+      "example": "We need to offer developing nations practical aid such as technical support."
+    },
+    {
+      "word": "Unpaid work",
+      "meaning": "Work performed without monetary compensation, often for charity.",
+      "example": "Many young people are spending a short time doing unpaid work in poorer countries."
+    },
+    {
+      "word": "Materialistic society",
+      "meaning": "A society predominantly focused on acquiring wealth and possessions.",
+      "example": "Encouraging consumerism could lead to the appearance of a materialistic society."
+    },
+    {
+      "word": "Financial assistance",
+      "meaning": "Funding or subsidies provided to support individuals or organizations.",
+      "example": "Only people working in the field of art receive financial assistance from the government."
+    },
+    {
+      "word": "Public health",
+      "meaning": "The health of the population as a whole.",
+      "example": "Public spaces such as squares and parks help improve public health."
+    },
+    {
+      "word": "Rural areas",
+      "meaning": "Countryside regions located outside towns and cities.",
+      "example": "Young people leave rural areas to study or work in cities."
+    },
+    {
+      "word": "Airfares",
+      "meaning": "The prices charged for flying on commercial aircraft.",
+      "example": "In recent years, international airfares have significantly dropped."
+    },
+    {
+      "word": "Commuting costs",
+      "meaning": "The expenses incurred when travelling between home and work.",
+      "example": "Rising fuel prices mean that commuting costs would rapidly climb."
+    },
+    {
+      "word": "Exhaust fumes",
+      "meaning": "The toxic gases emitted from the engines of vehicles.",
+      "example": "People travelling by bike are susceptible to diseases due to exposure to exhaust fumes."
+    },
+    {
+      "word": "Social welfare",
+      "meaning": "Systems that provide assistance to individuals and families in need.",
+      "example": "High unemployment could put heavy pressure on social welfare."
+    },
+    {
+      "word": "Food poisoning",
+      "meaning": "Illness caused by eating contaminated food.",
+      "example": "Citizens should have access to information about health risks and food poisoning."
+    },
+    {
+      "word": "Physical punishment",
+      "meaning": "The use of physical force to cause pain for disciplinary purposes.",
+      "example": "Parents who lack skills might use physical punishment to discipline their children."
+    },
+    {
+      "word": "Poverty",
+      "meaning": "The state of being extremely poor.",
+      "example": "High unemployment rates could lead to other social problems such as poverty."
+    },
+    {
+      "word": "Extinct",
+      "meaning": "The dying out or extermination of a species.",
+      "example": "This puts many plant and animal species in danger of extinction."
+    },
+    {
+      "word": "Historic landmarks",
+      "meaning": "Buildings or sites that hold significant historical value.",
+      "example": "Museums and historic landmarks are ideal places to learn about the past."
+    },
+    {
+      "word": "Mass production",
+      "meaning": "The manufacturing of large quantities of standardized products.",
+      "example": "Mass production of consumer products leads to an increase in solid waste."
+    },
+    {
+      "word": "Personal qualities",
+      "meaning": "The characteristics and traits that make up an individual's personality.",
+      "example": "Personal qualities are an essential factor that needs to be taken into account when hiring."
+    },
+    {
+      "word": "Subjective",
+      "meaning": "Based on or influenced by personal feelings, tastes, or opinions.",
+      "example": "Encouraging students to criticize teachers could lead to subjective evaluations."
+    },
+    {
+      "word": "Compulsory",
+      "meaning": "Required by law or a rule; obligatory.",
+      "example": "Some people think painting and drawing should be compulsory in high schools."
+    },
+    {
+      "word": "Illiteracy rates",
+      "meaning": "The percentage of a population unable to read and write.",
+      "example": "The major reason for the increase in illiteracy rates is a lack of schools."
+    },
+    {
+      "word": "Extracurricular activities",
+      "meaning": "Activities performed by students that fall outside the realm of the normal curriculum.",
+      "example": "Students should have time for hobbies and extracurricular activities."
+    },
+    {
+      "word": "Environmental degradation",
+      "meaning": "The deterioration of the environment through depletion of resources.",
+      "example": "Environmental degradation is another problem facing the throwaway society."
+    },
+    {
+      "word": "Self-esteem",
+      "meaning": "Confidence in one's own worth or abilities.",
+      "example": "Possessing famous brands of clothes could help increase people's self-esteem."
+    },
+    {
+      "word": "Anti-social behaviours",
+      "meaning": "Actions that harm or lack consideration for the well-being of others.",
+      "example": "Exposure to violent media could lead to anti-social behaviours later in life."
+    },
+    {
+      "word": "Integration",
+      "meaning": "The action or process of successfully joining or mixing with a different group.",
+      "example": "Public places also play a vital role in integrating communities."
+    },
+    {
+      "word": "Disposable goods",
+      "meaning": "Products intended to be thrown away after a single use.",
+      "example": "Due to excessive production of disposable goods, hazardous waste is increasing."
+    },
+    {
+      "word": "Child obesity",
+      "meaning": "A condition where a child is significantly overweight for his or her age and height.",
+      "example": "Child obesity is one of the most serious health issues confronting many countries."
+    },
+    {
+      "word": "Healthcare expenditure",
+      "meaning": "The amount of money spent on health and medical services.",
+      "example": "Encouraging physical activity helps reduce healthcare expenditure."
+    },
+    {
+      "word": "Work-life balance",
+      "meaning": "The equilibrium between personal life and career work.",
+      "example": "It is necessary to raise awareness of the importance of a work-life balance."
+    },
+    {
+      "word": "Problem-solving skills",
+      "meaning": "The ability to identify and resolve complex issues effectively.",
+      "example": "Playing graphic adventure games helps develop better problem-solving skills."
+    },
+    {
+      "word": "Team sports",
+      "meaning": "Sports that involve players working together as a team to win.",
+      "example": "Taking part in team sports teaches players to work effectively in a team environment."
+    }
+  ]
+}

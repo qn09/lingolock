@@ -303,11 +303,16 @@ function getCurrentWord() {
         return {
             foreignWord: selectedLanguage === "English" ? "LingoLock English" : "LingoLock 日本語",
             pronunciation: "...",
+            romanization: "",
             partOfSpeech: "noun",
             meaning: `Syncing your daily vocabulary from Firebase Firestore...`,
+            nativeMeaning: `Syncing your daily vocabulary from Firebase Firestore...`,
+            englishMeaning: "",
             exampleForeign: "Syncing...",
+            exampleTranslation: "",
             language: selectedLanguage,
-            flag: selectedLanguage === "English" ? "🇬🇧" : "🇯🇵",
+            level: "beginner",
+            tags: [],
             bcp47: selectedLanguage === "English" ? "en-GB" : "ja-JP"
         };
     }
@@ -321,10 +326,58 @@ function getCurrentWord() {
     return langWords[index];
 }
 
+function getDisplayTranslation(word) {
+    if (word.language === "Japanese") {
+        const englishMeaning = getDisplayEnglishMeaning(word);
+        if (englishMeaning) return englishMeaning;
+    }
+
+    const nativeMeaning = (word.nativeMeaning || "").trim();
+    if (nativeMeaning) return nativeMeaning;
+
+    const legacyMeaning = (word.meaning || "").trim();
+    if (word.language === "Japanese" && legacyMeaning) return legacyMeaning;
+
+    const legacyTranslation = (word.translation || "").trim();
+    if (legacyTranslation) return legacyTranslation;
+
+    return legacyMeaning;
+}
+
+function getDisplayMeaning(word) {
+    if (word.language === "Japanese") {
+        const englishMeaning = getDisplayEnglishMeaning(word);
+        if (englishMeaning) return englishMeaning;
+    }
+
+    return (word.nativeMeaning || word.meaning || word.translation || "").trim();
+}
+
+function getDisplayEnglishMeaning(word) {
+    const englishMeaning = (word.englishMeaning || "").trim();
+    if (englishMeaning) return englishMeaning;
+    return word.language === "Japanese" ? (word.translation || "").trim() : "";
+}
+
+function getDisplayPronunciation(word) {
+    const pronunciation = (word.pronunciation || "").trim();
+    if (!pronunciation) return "";
+
+    if (word.language === "Japanese") {
+        return containsJapaneseScript(pronunciation) ? pronunciation : "";
+    }
+
+    return formatPronunciation(pronunciation);
+}
+
+function containsJapaneseScript(text) {
+    return /[\u3040-\u30ff\u3400-\u9fff]/.test(text);
+}
+
 // --- STATE SYNCHRONIZATION ---
 function syncData() {
     const word = getCurrentWord();
-    const formattedPron = formatPronunciation(word.pronunciation);
+    const formattedPron = getDisplayPronunciation(word);
     
     // Update Dashboard card labels
     document.getElementById("dashboard-lang-label").textContent = selectedLanguage.toUpperCase();
@@ -334,7 +387,8 @@ function syncData() {
     document.getElementById("card-foreign-word").textContent = word.foreignWord;
     const translationFront = document.getElementById("card-translation-front");
     if (translationFront) {
-        translationFront.textContent = word.translation || "";
+        const englishMeaning = getDisplayEnglishMeaning(word);
+        translationFront.textContent = getDisplayTranslation(word) + (englishMeaning ? ` · EN: ${englishMeaning}` : "");
     }
     const cardPron = document.getElementById("card-pronunciation");
     cardPron.textContent = formattedPron;
@@ -342,7 +396,7 @@ function syncData() {
     
     // Card Back Details
     document.getElementById("card-pos-back").textContent = word.partOfSpeech;
-    document.getElementById("card-meaning").textContent = word.meaning;
+    document.getElementById("card-meaning").textContent = getDisplayMeaning(word);
     
     // Examples Details
     document.getElementById("card-example-foreign").textContent = `"${word.exampleForeign}"`;
@@ -361,19 +415,15 @@ function syncData() {
     const widgetRectPron = document.getElementById("widget-rect-pronunciation");
     widgetRectPron.textContent = formattedPron;
     widgetRectPron.style.display = formattedPron ? "block" : "none";
-    document.getElementById("widget-rect-translation").textContent = word.translation || word.partOfSpeech.toUpperCase();
-    document.getElementById("widget-rect-flag").textContent = word.flag;
-    
+    const displayTranslation = getDisplayTranslation(word);
+    document.getElementById("widget-rect-translation").textContent = displayTranslation || word.partOfSpeech.toUpperCase();
     // Update Lock Screen Circular Widget View
-    document.getElementById("widget-circular-flag").textContent = word.flag;
-    // Get first 3 characters of the foreign word capitalized
     const displayLetters = word.foreignWord.substring(0, 3).toUpperCase();
     document.getElementById("widget-circular-letters").textContent = displayLetters;
     
     // Update Lock Screen Inline Widget View
-    const inlineText = word.foreignWord + (word.translation ? ` - ${word.translation}` : (formattedPron ? ` ${formattedPron}` : ""));
+    const inlineText = word.foreignWord + (displayTranslation ? ` - ${displayTranslation}` : (formattedPron ? ` ${formattedPron}` : ""));
     document.querySelector(".widget-inline-content").innerHTML = `
-        <span class="widget-flag">${word.flag}</span> 
         <span class="widget-inline-text">${inlineText}</span>
     `;
     
@@ -445,7 +495,7 @@ function renderHistory() {
             <div class="history-item" data-word="${word.foreignWord}">
                 <div class="history-item-left">
                     <h4>${word.foreignWord}</h4>
-                    <p>${word.translation} &bull; ${dateLabel}${isAi ? " &bull; AI" : ""}</p>
+                    <p>${getDisplayTranslation(word)} &bull; ${dateLabel}${isAi ? " &bull; AI" : ""}</p>
                 </div>
                 <div class="history-item-right">
                     <span class="part-badge">${word.partOfSpeech}</span>
@@ -471,14 +521,15 @@ function renderHistory() {
                 document.getElementById("card-foreign-word").textContent = wordObj.foreignWord;
                 const translationFront = document.getElementById("card-translation-front");
                 if (translationFront) {
-                    translationFront.textContent = wordObj.translation || "";
+                    const englishMeaning = getDisplayEnglishMeaning(wordObj);
+                    translationFront.textContent = getDisplayTranslation(wordObj) + (englishMeaning ? ` · EN: ${englishMeaning}` : "");
                 }
-                const formattedObjPron = formatPronunciation(wordObj.pronunciation);
+                const formattedObjPron = getDisplayPronunciation(wordObj);
                 const cardPron = document.getElementById("card-pronunciation");
                 cardPron.textContent = formattedObjPron;
                 cardPron.style.display = formattedObjPron ? "block" : "none";
                 document.getElementById("card-pos-back").textContent = wordObj.partOfSpeech;
-                document.getElementById("card-meaning").textContent = wordObj.meaning;
+                document.getElementById("card-meaning").textContent = getDisplayMeaning(wordObj);
                 document.getElementById("card-example-foreign").textContent = `"${wordObj.exampleForeign}"`;
                 
                 // Show learn tab
@@ -659,16 +710,25 @@ async function autoFetchAIWord(dateKey, language, force = false) {
         
         const doc = langWords[index];
         const fields = doc.fields;
+        const tags = fields.tags?.arrayValue?.values
+            ?.map(value => value.stringValue)
+            .filter(Boolean) || [];
         
         const word = {
             id: doc.name.split("/").pop(),
             foreignWord: fields.foreignWord?.stringValue || "",
+            translation: fields.translation?.stringValue || "",
             pronunciation: fields.pronunciation?.stringValue || "",
+            romanization: fields.romanization?.stringValue || "",
             partOfSpeech: fields.partOfSpeech?.stringValue || "noun",
             meaning: fields.meaning?.stringValue || "",
+            nativeMeaning: fields.nativeMeaning?.stringValue || "",
+            englishMeaning: fields.englishMeaning?.stringValue || "",
             exampleForeign: fields.exampleForeign?.stringValue || "",
+            exampleTranslation: fields.exampleTranslation?.stringValue || "",
             language: language,
-            flag: language === "English" ? "🇬🇧" : "🇯🇵",
+            level: fields.level?.stringValue || "beginner",
+            tags,
             bcp47: language === "English" ? "en-GB" : "ja-JP"
         };
         
@@ -771,7 +831,6 @@ function switchTab(tabName) {
     }
 }
 
-// --- TEXT TO SPEECH (BCP-47 Voice Accents) ---
 function speakWordOfCard() {
     const word = getCurrentWord();
     
@@ -779,17 +838,43 @@ function speakWordOfCard() {
         // Stop current speech first
         window.speechSynthesis.cancel();
         
-        const utterance = new SpeechSynthesisUtterance(word.foreignWord);
+        // Clean up parentheticals for cleaner speech
+        let textToSpeak = word.foreignWord;
+        const parenIndex = textToSpeak.indexOf('(');
+        if (parenIndex !== -1) {
+            textToSpeak = textToSpeak.substring(0, parenIndex).trim();
+        }
+        
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
         utterance.lang = word.bcp47;
         utterance.rate = 0.85; // slightly slower for language learners
         
         // Find matching voice if possible (browser support varies)
         const voices = window.speechSynthesis.getVoices();
-        const matchingVoice = voices.find(voice => voice.lang.includes(word.bcp47));
+        const langCode = word.bcp47.toLowerCase().replace('_', '-');
+        const langPrefix = langCode.split('-')[0];
+        
+        let matchingVoice = voices.find(voice => {
+            const voiceLang = voice.lang.toLowerCase().replace('_', '-');
+            return voiceLang === langCode;
+        });
+        
+        if (!matchingVoice) {
+            matchingVoice = voices.find(voice => {
+                const voiceLang = voice.lang.toLowerCase().replace('_', '-');
+                return voiceLang.startsWith(langPrefix);
+            });
+        }
+        
         if (matchingVoice) {
             utterance.voice = matchingVoice;
         }
         
+        utterance.onerror = (event) => {
+            console.error("SpeechSynthesisUtterance error:", event);
+        };
+        
+        window.speechSynthesis.resume();
         window.speechSynthesis.speak(utterance);
     } else {
         alert("Text-to-speech is not supported in this browser. Please try Chrome, Safari, or Edge.");

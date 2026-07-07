@@ -40,3 +40,14 @@ Thumbs.db
 # Local secrets & built credentials
 ios/Shared/Secrets.swift
 web/.env
+
+# SwiftPM & xtool Build Directories
+.build/
+xtool/
+*.xip
+
+# Local sideload/signing output
+AltServerData/
+WordOfTheDay-Unsigned-IPA/
+WordOfTheDay-Unsigned-IPA*.zip
+conversation_summary_for_codex.md
